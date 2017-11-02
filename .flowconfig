@@ -1,0 +1,15 @@
+[ignore]
+.*/node_modules/aurelia-cli/lib/*
+.*/node_modules/npm/*
+.*/node_modules/eslint-plugin-jsx-a11y/src/*
+
+
+[include]
+
+[libs]
+
+flow
+[options]
+
+suppress_type=$FlowIssue
+suppress_comment= \\(.\\|\n\\)*\\$FlowIgnore
