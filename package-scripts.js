@@ -4,6 +4,9 @@ const {config: {port: E2E_PORT}} = require('./test/protractor.conf')
 module.exports = {
   scripts: {
     default: 'nps webpack',
+    cubx: {
+      default: 'cubx-http-server ./build -c-1 --proxy=http://localhost:8080'
+    },
     test: {
       default: 'nps test.jest',
       jest: {

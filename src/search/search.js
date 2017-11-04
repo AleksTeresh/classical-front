@@ -1,26 +1,31 @@
 /* @flow */
 'use strict'
 
-import { List } from 'immutable'
+import { subscribe, dispatch, getState } from '../core/storeHandler'
+import * as actionCreators from './action-creators'
 
-import { inject } from 'aurelia-framework'
+import type { SearchState } from './types'
+import type { AppState } from '../types'
 
-import * as client from '../core/client'
-
-import type { Gig } from '../core/types'
-
-@inject(client)
 export class Search {
-  gigs: List<Gig>;
-  client: any;
+  search: SearchState
 
-  constructor(client: any) {
-    this.gigs = List()
-    this.client = client
+  constructor () {
+    subscribe(this.update.bind(this))
+
+    this.search = getState().search
   }
 
-  created() {
-    this.client.fetchGigs()
-      .then(gigs => this.gigs = gigs)
+  created () {
+    dispatch(actionCreators.gigActions.load())
+  }
+
+  editSearch (value: string) {
+    console.log(value)
+    dispatch(actionCreators.filterActions.editSearch(value))
+  }
+
+  update (state: AppState) {
+    this.search = state.search
   }
 }

@@ -15,7 +15,8 @@ export function toPlain (
     description: gig.description,
     performances: gig.performances.toArray(),
     timestamp: gig.timestamp,
-    duration: gig.duration
+    duration: gig.duration,
+    venue: gig.venue
   }
 }
 
@@ -29,6 +30,7 @@ export function fromPlain (
     description: gig.description,
     performances: List(gig.performances),
     timestamp: gig.timestamp,
-    duration: gig.duration
+    duration: gig.duration,
+    venue: gig.venue
   }
 }

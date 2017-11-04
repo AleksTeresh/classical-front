@@ -2,7 +2,5 @@
 'use strict'
 
 export default class Details {
-  constructor () {
 
-  }
 }

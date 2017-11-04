@@ -1,19 +1,23 @@
 <template>
-  <require from="bootstrap/dist/css/bootstrap.min.css"></require>
-  <require from="./styles/index.css"></require>
+  <require from='bootstrap/dist/css/bootstrap.min.css' />
+  <require from='font-awesome/css/font-awesome.min.css' />
+  <require from='font-awesome/fonts/fontawesome-webfont.woff2' />
+  <require from='font-awesome/fonts/fontawesome-webfont.woff' />
+  <require from='font-awesome/fonts/fontawesome-webfont.ttf' />
+  <require from='./styles/index.css' />
 
-  <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">
-        <i class="fa fa-user"></i>
+  <nav class='navbar navbar-default navbar-fixed-top' role='navigation'>
+    <div class='navbar-header'>
+      <a class='navbar-brand' href='#'>
+        <i class='fa fa-user' />
         <span>Classical</span>
       </a>
     </div>
   </nav>
 
-  <div class="container">
-    <div class="row">
-      <router-view class="col-md-12"></router-view>
+  <div class='container'>
+    <div class='row'>
+      <router-view class='col-md-12' />
     </div>
   </div>
 </template>

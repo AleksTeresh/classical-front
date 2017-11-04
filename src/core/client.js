@@ -6,8 +6,6 @@ import { HttpClient } from 'aurelia-fetch-client'
 
 import Promise from 'bluebird'
 
-import { List } from 'immutable'
-
 import { GigUtils } from './type-methods'
 
 import type { Gig } from './types'
@@ -26,9 +24,11 @@ export function fetchGigs (
       '&offset=' + offset +
       '&author=' + author
     )
-    .then(response => response.json())
+    .then(response => {
+      return response.json()
+    })
     .then(gigs => {
-      return List(gigs).map(GigUtils.fromPlain)
+      return gigs.map(GigUtils.fromPlain)
     })
 }
 

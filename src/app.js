@@ -9,7 +9,7 @@ export class App {
   configureRouter (config: any, router: any) {
     config.title = 'Classical'
     config.map([
-      { route: '', moduleId: PLATFORM.moduleName('./search/search'), title: 'Search'},
+      { route: '', moduleId: PLATFORM.moduleName('./search/search'), title: 'Search' },
       { route: 'gigs/:id', moduleId: 'details/details', name: 'gigs' }
     ])
 

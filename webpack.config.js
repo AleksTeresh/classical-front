@@ -7,7 +7,7 @@ const { AureliaPlugin, ModuleDependenciesPlugin } = require('aurelia-webpack-plu
 const { optimize: { CommonsChunkPlugin, UglifyJsPlugin }, ProvidePlugin } = require('webpack')
 
 // config helpers:
-const ensureArray = (config) => config && (Array.isArray(config) ? config : [config]) || []
+const ensureArray = (config) => (config && (Array.isArray(config) ? config : [config])) || []
 const when = (condition, config, negativeConfig) =>
   condition ? ensureArray(config) : ensureArray(negativeConfig)
 
@@ -41,7 +41,14 @@ module.exports = ({production, server, extractCss, coverage} = {}) => ({
   devServer: {
     contentBase: outDir,
     // serve index.html for all 404 (required for push-state)
-    historyApiFallback: true
+    historyApiFallback: true,
+    proxy: {
+      '/api/**': {
+        target: 'http://localhost:8085',
+        secure: false,
+        changeOrigin: true
+      }
+    }
   },
   devtool: production ? 'nosources-source-map' : 'cheap-module-eval-source-map',
   module: {
@@ -71,7 +78,7 @@ module.exports = ({production, server, extractCss, coverage} = {}) => ({
       },
       { test: /\.json$/i, loader: 'json-loader' },
       // use Bluebird as the global Promise implementation:
-      { test: /[\/\\]node_modules[\/\\]bluebird[\/\\].+\.js$/, loader: 'expose-loader?Promise' },
+      { test: /[/\\]node_modules[/\\]bluebird[/\\].+\.js$/, loader: 'expose-loader?Promise' },
       // embed small images and fonts as Data Urls and larger ones as files:
       { test: /\.(png|gif|jpg|cur)$/i, loader: 'url-loader', options: { limit: 8192 } },
       { test: /\.woff2(\?v=[0-9]\.[0-9]\.[0-9])?$/i, loader: 'url-loader', options: { limit: 10000, mimetype: 'application/font-woff2' } },
