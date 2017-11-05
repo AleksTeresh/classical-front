@@ -21,7 +21,6 @@ export class Search {
   }
 
   editSearch (value: string) {
-    console.log(value)
     dispatch(actionCreators.filterActions.editSearch(value))
   }
 

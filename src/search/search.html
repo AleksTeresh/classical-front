@@ -1,7 +1,8 @@
 <template>
-  <form>
+  <form class="md-form">
     <div class="form-group">
       <div class="input-group">
+        <i class="fa fa-search prefix"></i>
         <input
           id="search"
           type="text"
@@ -11,16 +12,15 @@
           value.to-view="search.filter.search"
           placeholder="Search"
           ></input>
-        <span class="input-group-addon"><i class="fa fa-search"></i></span>
       </div>
     </div>
   </form>
 
   <div class="list-group">
     <a
-      href="#"
       class="list-group-item"
-      repeat.for="gig of search.gig.filtered">
+      repeat.for="gig of search.gig.filtered"
+      route-href="route: details; params.bind: {id: gig.id}">
       <img src="${gig.imageUrl}" />
       <h4>${gig.name}</h4>
       <h8>${gig.description}</h8>

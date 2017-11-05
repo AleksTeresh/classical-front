@@ -1,10 +1,10 @@
 /* @flow */
 'use strict'
 
-import { List } from 'immutable'
+// import { List } from 'immutable'
 
-import type { Gig, GigPlain } from '../types'
-
+// import type { Gig, GigPlain } from '../types'
+/*
 export function toPlain (
   gig: Gig
 ): GigPlain {
@@ -33,4 +33,4 @@ export function fromPlain (
     duration: gig.duration,
     venue: gig.venue
   }
-}
+} */

@@ -1,2 +1,68 @@
 <template>
+  <!--Main layout-->
+    <main class="mt-5">
+
+        <!--Main container-->
+        <div class="container">
+
+            <!--Grid row-->
+            <div class="row">
+
+                <!--Grid column-->
+                <div class="col-md-7 mb-4">
+
+                    <!--Featured image -->
+                    <div class="view overlay hm-white-light z-depth-1-half">
+                        <img
+                          src=${details.gig.imageUrl}
+                          alt=${details.gig.name}
+                          class="img-fluid ">
+                        <div class="mask"></div>
+                    </div>
+
+                </div>
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div class="col-md-5 mb-4">
+
+                    <h2>${details.gig.name}</h2>
+                    <h4>${getTime()}</h4>
+                    <h4>${getDuration()}</h4>
+                    <hr>
+                    <p>${details.gig.description}</p>
+                    <a href="https://mdbootstrap.com/" class="btn btn-indigo">Get it now!</a>
+
+                </div>
+                <!--Grid column-->
+
+            </div>
+            <!--Grid row-->
+
+            <!--Grid row-->
+            <div class="row">
+              <!--Grid column-->
+              <div class="col-md-5 mb-4">
+                <div class="list-group">
+                  <a
+                    repeat.for="perf of details.gig.performances"
+                    href="#"
+                    class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                      <h5 class="mb-1">${perf.author.name}</h5>
+                    </div>
+                    <p class="mb-1">${perf.name}</p>
+                  </a>
+                </div>
+              </div>
+              <!--Grid column-->
+
+            </div>
+            <!--Grid row-->
+
+        </div>
+        <!--Main container-->
+
+    </main>
+    <!--Main layout-->
 </template>

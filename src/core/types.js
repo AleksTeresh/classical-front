@@ -1,7 +1,7 @@
 /* @flow */
 'use strict'
 
-import { List } from 'immutable'
+// import { List } from 'immutable'
 
 export type Author = {
   id: number,
@@ -42,7 +42,7 @@ export type Gig = {
   imageUrl?: string,
   name: string,
   description: string,
-  performances: List<Performance>,
+  performances: Array<Performance>,
   timestamp: number,
   duration: number,
   venue: Venue

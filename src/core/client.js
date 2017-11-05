@@ -6,7 +6,7 @@ import { HttpClient } from 'aurelia-fetch-client'
 
 import Promise from 'bluebird'
 
-import { GigUtils } from './type-methods'
+// import { GigUtils } from './type-methods'
 
 import type { Gig } from './types'
 
@@ -28,14 +28,14 @@ export function fetchGigs (
       return response.json()
     })
     .then(gigs => {
-      return gigs.map(GigUtils.fromPlain)
+      return gigs // .map(GigUtils.fromPlain)
     })
 }
 
 export function fetchGig (id: number): Promise<Gig> {
   return httpClient.fetch('/api/gig/' + id)
     .then(response => response.json())
-    .then(gig => {
+  /*  .then(gig => {
       return GigUtils.fromPlain(gig)
-    })
+    })  */
 }
