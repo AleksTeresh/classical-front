@@ -24,7 +24,7 @@ export type Performance = {
   name: string,
   description: string,
   imageUrl?: string,
-  youTubeLink?: string,
+  youTubeId?: string,
   genre: Genre
 }
 

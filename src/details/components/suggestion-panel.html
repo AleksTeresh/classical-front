@@ -1,0 +1,35 @@
+<template>
+   <!--Grid row-->
+   <div class="row">
+       <!--Grid column-->
+       <div repeat.for="suggestion of suggestions" class="col-lg-4 col-md-12 mb-4">
+
+           <!--Card-->
+           <div class="card">
+
+               <!--Card image-->
+               <div class="view overlay hm-white-slight">
+                   <img src="${suggestion.imageUrl}" class="img-fluid" alt="${suggestion.name}">
+                   <a href="#">
+                       <div class="mask"></div>
+                   </a>
+               </div>
+
+               <!--Card content-->
+               <div class="card-body">
+                   <!--Title-->
+                   <h4 class="card-title">${suggestion.name}</h4>
+                   <!--Text-->
+                   <p class="card-text">${suggestion.description}</p>
+                   <a href="#" class="btn btn-indigo">More</a>
+               </div>
+
+           </div>
+           <!--/.Card-->
+
+       </div>
+       <!--Grid column-->
+
+   </div>
+   <!--Grid row-->
+</template>

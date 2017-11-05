@@ -21,13 +21,20 @@ export default class Details {
   activate (params: any, routeConfig: any) {
     this.routeConfig = routeConfig
 
-    dispatch(actionCreators.gigActionCreators.load(params.id))
+    dispatch(actionCreators.gigActions.load(params.id))
   }
-/*
-  editSearch (value: string) {
-    dispatch(actionCreators.filterActions.editSearch(value))
+
+  get getSelectedId (): string {
+    const selectedPerformance = this.details.gig.performances
+      .filter((p) => p.id === this.details.selection.performanceId)[0]
+
+    if (!selectedPerformance || !selectedPerformance.youTubeId) {
+      return 'KpOtuoHL45Y' // a hardcoded default
+    }
+
+    return selectedPerformance.youTubeId
   }
-*/
+
   getTime () {
     return moment(this.details.gig.timestamp).format('D MMM YYYY')
   }

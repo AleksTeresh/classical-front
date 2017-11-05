@@ -2,6 +2,14 @@
   <form class="md-form">
     <div class="form-group">
       <div class="input-group">
+        <select class="form-control" multiple>
+          <option value="" disabled selected>Choose your option</option>
+          <option repeat.for="author of authors" value="${author.id}">
+            ${author.name}
+          </option>
+        </select>
+      </div>
+      <div class="input-group">
         <i class="fa fa-search prefix"></i>
         <input
           id="search"

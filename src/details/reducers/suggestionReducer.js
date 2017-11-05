@@ -1,6 +1,8 @@
 /* @flow */
 'use strict'
 
+import defaultImage from '../../../static/classical.jpg'
+
 import type { Action } from '../../actions'
 import type { Gig } from '../../core/types'
 
@@ -12,7 +14,17 @@ export default function gigReducer (
 ): Array<Gig> {
   switch (action.type) {
     case 'details-gig-load-success':
-      return action.suggestions
+      return action.suggestions.map((p) => {
+        let imageUrl = p.imageUrl
+        if (!imageUrl) {
+          imageUrl = defaultImage
+        }
+
+        return {
+          ...p,
+          imageUrl: imageUrl
+        }
+      })
 
     default:
       return state

@@ -10,7 +10,7 @@ import type { Action } from '../../actions'
 
 function * fetchGigs (action: Action): Generator<any, any, any> {
   try {
-    const gigs = yield call(client.fetchGigs, '', 10, 0, '')
+    const gigs = yield call(client.fetchGigs, '', 10, 0)
     yield put({ type: 'search-gigs-load-success', gigs: gigs })
   } catch (e) {
     yield put({ type: 'search-gigs-load-failure' })

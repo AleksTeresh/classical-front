@@ -4,6 +4,7 @@
 import environment from './environment'
 import { PLATFORM } from 'aurelia-pal'
 import 'babel-polyfill'
+import 'bootstrap-select/dist/js/bootstrap-select.min.js'
 import * as Bluebird from 'bluebird'
 
 // remove out if you don't want a Promise polyfill (remove also from webpack.config.js)

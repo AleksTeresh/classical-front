@@ -1,8 +1,10 @@
 /* @flow */
 'use strict'
 
-import * as gigActionCreators from './gigActionCreators'
+import * as gigActions from './gigActions'
+import * as selectionActions from './selectionActions'
 
 export {
-  gigActionCreators
+  gigActions,
+  selectionActions
 }

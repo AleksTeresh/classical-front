@@ -15,3 +15,6 @@ export type DetailsAction
   | { type: 'details-gig-like-request', id: number }
   | { type: 'details-gig-like-success' }
   | { type: 'details-gig-like-failure' }
+
+  // selection
+  | { type: 'details-performance-select', id: number }
