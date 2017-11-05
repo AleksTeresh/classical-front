@@ -10,17 +10,20 @@
           keyup.trigger="editSearch($event.target.value)"
           value.to-view="search.filter.search"
           placeholder="Search"
-          >
+          ></input>
         <span class="input-group-addon"><i class="fa fa-search"></i></span>
       </div>
     </div>
   </form>
 
   <div class="list-group">
-    <a href="#" class="list-group-item" repeat.for="gig of search.gig.all">
-      <img src="${gig.imageUrl}"></img>
+    <a
+      href="#"
+      class="list-group-item"
+      repeat.for="gig of search.gig.filtered">
+      <img src="${gig.imageUrl}" />
       <h4>${gig.name}</h4>
-      <h8>${gig.description}<h8/>
+      <h8>${gig.description}</h8>
     </a>
   </div>
 </template>
