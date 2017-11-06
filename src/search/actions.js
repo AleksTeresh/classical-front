@@ -15,3 +15,9 @@ export type SearchAction
   | { type: 'search-filter-genre-toggle', id: number }
   | { type: 'search-filter-start-date-edit', startDate: number }
   | { type: 'search-filter-end-date-edit', endDate: number }
+
+  // Paginationactions
+  | { type: 'search-pagination-gig-count-set', count: number }
+  | { type: 'search-pagination-gig-page-set', page: number }
+  | { type: 'search-pagination-author-count-set', count: number }
+  | { type: 'search-pagination-author-page-set', page: number }

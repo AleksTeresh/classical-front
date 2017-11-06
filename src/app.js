@@ -1,10 +1,9 @@
 /* @flow */
 'use strict'
+import { PLATFORM } from 'aurelia-framework'
 
 import { coreActionCreators } from './core/action-creators'
 import { dispatch } from './core/storeHandler'
-
-import { PLATFORM } from 'aurelia-framework'
 
 export class App {
   router: any;

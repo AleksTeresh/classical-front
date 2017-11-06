@@ -22,7 +22,18 @@ export type FilterState = {
   venues: Array<number>
 }
 
+export type PaginationEntity = {
+  page: number,
+  count: number
+}
+
+export type PaginationState = {
+  gig: PaginationEntity,
+  author: PaginationEntity
+}
+
 export type SearchState = {
   gig: GigState,
-  filter: FilterState
+  filter: FilterState,
+  pagination: PaginationState
 }
