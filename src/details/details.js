@@ -28,11 +28,11 @@ export default class Details {
     const selectedPerformance = this.details.gig.performances
       .filter((p) => p.id === this.details.selection.performanceId)[0]
 
-    if (!selectedPerformance || !selectedPerformance.youTubeId) {
+    if (!selectedPerformance || !selectedPerformance.youtubeId) {
       return 'KpOtuoHL45Y' // a hardcoded default
     }
 
-    return selectedPerformance.youTubeId
+    return selectedPerformance.youtubeId
   }
 
   getTime () {

@@ -7,7 +7,13 @@ export type Author = {
   id: number,
   imageUrl?: number,
   name: string,
+  description?: string,
   wikipediaLink: string
+}
+
+export type AuthorResponse = {
+  authors: Array<Author>,
+  count: number
 }
 
 export type Genre = {
@@ -20,21 +26,20 @@ export type Performance = {
   author: string,
   conductor?: string,
   player?: string,
-  orchestra?: string,
   name: string,
   description: string,
   imageUrl?: string,
-  youTubeId?: string,
-  genre: Genre
+  youtubeId?: string,
+  genres: Array<Genre>
 }
 
 export type Venue = {
   id: number,
   imageUrl?: string,
   name: string,
-  description: string,
-  lat: number,
-  lng: number
+  description: string
+  // lat: number,
+  // lng: number
 }
 
 export type Gig = {
@@ -47,7 +52,7 @@ export type Gig = {
   duration: number,
   venue: Venue
 }
-
+/*
 export type GigPlain = {
   id: number,
   imageUrl?: string,
@@ -57,6 +62,11 @@ export type GigPlain = {
   timestamp: number,
   duration: number,
   venue: Venue
+}
+*/
+export type GigResponse = {
+  gigs: Array<Gig>,
+  count: number
 }
 
 export type CoreState = {
