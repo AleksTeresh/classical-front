@@ -142,9 +142,12 @@
   },
   "scripts": {
     "start": "nps",
+    "clean": "rm -rf dist/*",
     "test": "npm run lint && npm run flow && nps test",
     "flow": "flow",
-    "lint": "standard"
+    "lint": "standard",
+    "build": "npm run clean && webpack",
+    "start-server": "cubx-http-server ./dist -p 80 --proxy=http://back-end:8085"
   },
   "main": "dist/app.bundle.js"
 }
