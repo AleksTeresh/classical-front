@@ -23,17 +23,21 @@ export function fetchGigs (
   keyPhrase?: string = '',
   limit?: number = 10,
   offset?: number = 0,
-  authorId?: number,
-  genreId?: number,
-  venueId?: number
+  authorIds?: Array<number>,
+  genreIds?: Array<number>,
+  venueIds?: Array<number>,
+  startDate?: string,
+  endDate?: string
 ): Promise<GigResponse> {
   return httpClient.fetch(
       '/api/gig?keyPhrase=' + encodeURIComponent(keyPhrase) +
       '&limit=' + limit +
       '&offset=' + offset +
-      (authorId ? ('&author=' + authorId) : '') +
-      (genreId ? ('&genre=' + genreId) : '') +
-      (venueId ? ('&venue=' + venueId) : '')
+      (authorIds  /* && authorIds.length > 0 */ ? ('&authors=' + authorIds.toString() + '') : '') +
+      (genreIds /*  && genreIds.length > 0 */ ? ('&genres=' + genreIds.toString() + '') : '') +
+      (venueIds /*  && venueIds.length > 0 */ ? ('&venues=' + venueIds.toString() + '') : '') +
+      (startDate ? ('&startDate=' + startDate) : '') +
+      (endDate ? ('&endDate=' + endDate) : '')
     )
     .then(response => {
       return response.json()

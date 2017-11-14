@@ -17,8 +17,8 @@ export type FilterState = {
   search: string,
   authors: Array<number>,
   genres: Array<number>,
-  startDate: number,
-  endDate: number,
+  startDate: string,
+  endDate: string,
   venues: Array<number>
 }
 

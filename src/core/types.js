@@ -71,6 +71,9 @@ export type GigResponse = {
 
 export type CoreState = {
   genres: Array<Genre>,
-  authors: Array<Author>,
+  authors: {
+    count: number,
+    authors: Array<Author>
+  },
   venues: Array<Venue>
 }

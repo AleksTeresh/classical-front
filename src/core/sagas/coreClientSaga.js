@@ -6,11 +6,13 @@ import { call, put, takeEvery } from 'redux-saga/effects'
 
 import * as client from '../../core/client'
 
+import config from '../../config'
+
 import type { Action } from '../../actions'
 
 function * fetchAuthors (action: Action): Generator<any, any, any> {
   try {
-    const authors = yield call(client.fetchAuthors)
+    const authors = yield call(client.fetchAuthors, '', config.fetchLimit.author)
     yield put({ type: 'core-authors-load-success', authors: authors })
   } catch (e) {
     yield put({ type: 'core-authors-load-failure' })

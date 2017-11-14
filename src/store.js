@@ -7,6 +7,7 @@ import createSagaMiddleware from 'redux-saga'
 import rootReducer from './reducer'
 import { searchClientSaga } from './search/sagas'
 import { detailsClientSaga } from './details/sagas'
+import { coreClientSaga } from './core/sagas'
 
 // create the saga middleware
 const sagaMiddleware = createSagaMiddleware()
@@ -22,5 +23,6 @@ const store = createStore(
 // then run the saga
 sagaMiddleware.run(searchClientSaga)
 sagaMiddleware.run(detailsClientSaga)
+sagaMiddleware.run(coreClientSaga)
 
 export default store

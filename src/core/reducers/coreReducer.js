@@ -5,7 +5,10 @@ import type { Action } from '../../actions'
 import type { CoreState } from '../types'
 
 const initialState: CoreState = {
-  authors: [],
+  authors: {
+    authors: [],
+    count: 0
+  },
   genres: [],
   venues: []
 }
@@ -18,7 +21,7 @@ export default function filterReducer (
     case 'core-venues-load-success':
       return {
         ...state,
-        venue: action.venues
+        venues: action.venues
       }
 
     case 'core-genres-load-success':
@@ -27,7 +30,7 @@ export default function filterReducer (
         genres: action.genres
       }
 
-    case 'core-author-load-success':
+    case 'core-authors-load-success':
       return {
         ...state,
         authors: action.authors

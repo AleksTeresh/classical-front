@@ -31,14 +31,14 @@ export function toggleGenre (id: number): Action {
   }
 }
 
-export function editStartDate (startDate: number): Action {
+export function editStartDate (startDate: string): Action {
   return {
     type: 'search-filter-start-date-edit',
     startDate: startDate
   }
 }
 
-export function editEndDate (endDate: number): Action {
+export function editEndDate (endDate: string): Action {
   return {
     type: 'search-filter-end-date-edit',
     endDate: endDate

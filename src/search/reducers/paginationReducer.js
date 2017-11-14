@@ -12,7 +12,7 @@ const initialState: PaginationState = {
   author: {
     page: 0,
     count: 0
-  },
+  }
 }
 
 export default function gigReducer (

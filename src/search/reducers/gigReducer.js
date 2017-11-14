@@ -1,7 +1,7 @@
 /* @flow */
 'use strict'
 
-import { filterGigs } from '../../core/utils/filters'
+// import { filterGigs } from '../../core/utils/filters'
 
 import type { Action } from '../../actions'
 import type { GigState } from '../types'
@@ -22,13 +22,13 @@ export default function gigReducer (
         all: action.gigs,
         filtered: action.gigs
       }
-
+/*
     case 'search-filter-search-edit':
       return {
         ...state,
         filtered: filterGigs(state.all, action.search)
       }
-
+*/
     default:
       return state
   }

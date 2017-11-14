@@ -2,6 +2,8 @@
 'use strict'
 import { PLATFORM } from 'aurelia-framework'
 
+import 'bootstrap-datepicker'
+
 import { coreActionCreators } from './core/action-creators'
 import { dispatch } from './core/storeHandler'
 
