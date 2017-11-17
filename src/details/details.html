@@ -2,63 +2,56 @@
   <require from="./components/suggestion-panel"></require>
   <require from="./components/performance-select"></require>
 
-  <!--Main layout-->
-    <main class="mt-5">
-        <!--Main container-->
-        <div class="container">
-            <!--Grid row-->
-            <div class="row">
-                <!--Grid column-->
-                <div class="col-md-7 mb-4">
-                    <!--Featured image -->
-                    <div class="view overlay hm-white-light z-depth-1-half">
-                        <img
-                          src=${details.gig.imageUrl}
-                          alt=${details.gig.name}
-                          class="img-fluid ">
-                        <div class="mask"></div>
-                    </div>
-                </div>
-                <!--Grid column-->
-                <!--Grid column-->
-                <div class="col-md-5 mb-4">
-                    <h2>${details.gig.name}</h2>
-                    <h4>${getTime()}</h4>
-                    <h4>${getDuration()}</h4>
-                    <hr>
-                    <p>${details.gig.description}</p>
-                    <a href="https://mdbootstrap.com/" class="btn btn-indigo">Get it now!</a>
-                </div>
-                <!--Grid column-->
-            </div>
-            <!--Grid row-->
+  <!--Grid row-->
+  <div class="row">
+      <!--Grid column-->
+      <div class="col-sm-6">
+          <!--Featured image -->
+          <img
+            src=${details.gig.imageUrl}
+            alt=${details.gig.name}
+            class="img-fluid ">
+          <div class="mask"></div>
+      </div>
+      <!--Grid column-->
+      <!--Grid column-->
+      <div class="col-sm-5">
+          <h2>${details.gig.name}</h2>
+          <h4>${getTime()}</h4>
+          <h4>${getDuration()}</h4>
+          <hr>
+          <p>${details.gig.description}</p>
+      </div>
+      <!--Grid column-->
+  </div>
+  <!--Grid row-->
 
-            <!--Grid row-->
-            <div class="row">
-              <!--Grid column-->
-              <div class="col-md-5 mb-4">
-                <performance-select
-                  performances.bind="details.gig.performances"
-                  selected-id.bind="details.selection.performanceId"
-                </performance-select>
-              </div>
-              <!--Grid column-->
+  <!--Grid row-->
+  <div class="row" style="margin-top: 35px;">
+    <!--Grid column-->
+    <div class="col-sm-5">
+      <performance-select
+        performances.bind="details.gig.performances"
+        selected-id.bind="details.selection.performanceId"
+      </performance-select>
+    </div>
+    <!--Grid column-->
 
-              <!--Grid column-->
-              <div class="col-md-7 mb-4">
-                  <iframe
-                    width="560" height="315"
-                    src="https://www.youtube.com/embed/${getSelectedId}">
-                  </iframe>
-              </div>
-              <!--Grid column-->
-         </div>
-         <!--Grid row-->
-         <suggestion-panel suggestions.bind="details.suggestions">
-         </suggestion-panel>
+    <!--Grid column-->
+    <div class="col-sm-7">
+        <iframe
+          width="560" height="315"
+          src="https://www.youtube.com/embed/${getSelectedId}">
+        </iframe>
+    </div>
+    <!--Grid column-->
+  </div>
+<!--Grid row-->
 
-     </div>
-     <!--Main container-->
-    </main>
-    <!--Main layout-->
+   <!--Grid row-->
+   <div class="row" style="margin-top: 35px;">
+     <suggestion-panel suggestions.bind="details.suggestions">
+     </suggestion-panel>
+   </div>
+
 </template>
