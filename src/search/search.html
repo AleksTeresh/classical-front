@@ -78,7 +78,7 @@
         </div>
     </div>
   </div>
-  <div class="row">
+  <div class="row" style="margin-top: 30px;">
     <div
       class="col-sm-12 col-sm-offset-0
              col-md-6 col-md-offset-3
@@ -103,12 +103,24 @@
             click.delegate="submitFilter()">
             Search
           </button>
+
+          <button
+            class="btn btn-primary"
+            click.delegate="createWatchdog()">
+            Create watchdog
+          </button>
         </form>
       </div>
     </div>
   </div>
-  <div class="row">
+  <div class="row" style="margin-top: 35px;">
     <div class="col-sm-12">
+      <ul class="pagination">
+        <li>
+          <a repeat.for="i of search.pagination.gig.count">${i}</a>
+        </li>
+      </ul>
+
       <div class="list-group">
         <a
           class="list-group-item"
@@ -119,6 +131,12 @@
           <h8>${gig.description}</h8>
         </a>
       </div>
+
+      <ul class="pagination">
+        <li>
+          <a repeat.for="i of search.pagination.gig.count">${i}</a>
+        </li>
+      </ul>
     </div>
   </div>
 </template>

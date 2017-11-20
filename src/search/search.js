@@ -97,6 +97,17 @@ export class Search {
     ))
   }
 
+  createWatchdog () {
+    dispatch(actionCreators.watchdogActions.createWatchdog(
+      this.search.filter.search,
+      this.search.filter.startDate,
+      this.search.filter.endDate,
+      this.search.filter.genres,
+      this.search.filter.authors,
+      this.search.filter.venues
+    ))
+  }
+
   update (state: AppState) {
     this.search = state.search
     this.authors = state.core.authors.authors

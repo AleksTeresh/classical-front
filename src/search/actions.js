@@ -14,10 +14,24 @@ export type GigLoadAction = {
   authors: Array<number>
 }
 
+export type CreateWatchdogAction = {
+  type: 'search-watchdog-create-request',
+  keyPhrase: string,
+  startDate: string,
+  endDate: string,
+  venues: Array<number>,
+  genres: Array<number>,
+  authors: Array<number>
+}
+
 export type SearchAction
   = GigLoadAction
   | { type: 'search-gigs-load-success', gigs: Array<Gig> }
   | { type: 'search-gigs-load-failure' }
+
+  | CreateWatchdogAction
+  | { type: 'search-watchdog-create-success' }
+  | { type: 'search-watchdog-create-failure' }
 
   | { type: 'search-start' }
 

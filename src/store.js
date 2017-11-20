@@ -8,6 +8,8 @@ import rootReducer from './reducer'
 import { searchClientSaga } from './search/sagas'
 import { detailsClientSaga } from './details/sagas'
 import { coreClientSaga } from './core/sagas'
+import { registerClientSaga } from './register/sagas'
+import { loginClientSaga } from './login/sagas'
 
 // create the saga middleware
 const sagaMiddleware = createSagaMiddleware()
@@ -24,5 +26,7 @@ const store = createStore(
 sagaMiddleware.run(searchClientSaga)
 sagaMiddleware.run(detailsClientSaga)
 sagaMiddleware.run(coreClientSaga)
+sagaMiddleware.run(registerClientSaga)
+sagaMiddleware.run(loginClientSaga)
 
 export default store

@@ -10,12 +10,11 @@ import * as client from '../../core/client'
 
 import config from '../../config'
 
-import type { GigLoadAction } from '../actions'
+import type { GigLoadAction, CreateWatchdogAction } from '../actions'
 import type { GigResponse } from '../../core/types'
 
 function * fetchGigs (action: GigLoadAction): Generator<any, any, any> {
   try {
-    console.log(action.startDate, action.endDate)
     const gigResponse: GigResponse = yield call(
       client.fetchGigs,
       action.keyPhrase,
@@ -34,8 +33,26 @@ function * fetchGigs (action: GigLoadAction): Generator<any, any, any> {
   }
 }
 
+function * createWatchdog (action: CreateWatchdogAction): Generator<any, any, any> {
+  try {
+    yield call(
+      client.createWatchdog,
+      action.keyPhrase,
+      action.authors,
+      action.genres,
+      action.venues,
+      moment(action.startDate, 'DD.MM.YYYY').format('YYYY-MM-DD'),
+      moment(action.endDate, 'DD.MM.YYYY').format('YYYY-MM-DD')
+    )
+    yield put({ type: 'search-watchdog-create-success' })
+  } catch (e) {
+    yield put({ type: 'search-watchdog-create-failure' })
+  }
+}
+
 function * searchClientSaga (): Generator<any, any, any> {
   yield takeEvery('search-gigs-load-request', fetchGigs)
+  yield takeEvery('search-watchdog-create-request', createWatchdog)
 }
 
 export default searchClientSaga
