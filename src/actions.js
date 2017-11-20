@@ -6,6 +6,7 @@ import type { DetailsAction } from './details/actions'
 import type { CoreAction } from './core/actions'
 import type { RegisterAction } from './register/actions'
 import type { LoginAction } from './login/actions'
+import type { WatchdogAction } from './watchdog/actions'
 
 export type Action
   = SearchAction
@@ -13,3 +14,4 @@ export type Action
   | CoreAction
   | RegisterAction
   | LoginAction
+  | WatchdogAction

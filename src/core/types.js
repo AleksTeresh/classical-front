@@ -69,6 +69,15 @@ export type GigResponse = {
   count: number
 }
 
+export type Watchdog = {
+  keyPhrase: string,
+  authorIds: Array<number>,
+  genreIds: Array<number>,
+  venueIds: Array<number>,
+  startDate: string,
+  endDate: string
+}
+
 export type CoreState = {
   genres: Array<Genre>,
   authors: {

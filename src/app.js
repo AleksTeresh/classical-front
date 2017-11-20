@@ -9,41 +9,56 @@ import { dispatch } from './core/storeHandler'
 
 export class App {
   router: any;
-/*
-  constructor () {
 
+  constructor () {
+    dispatch(coreActionCreators.loadVenues())
+    dispatch(coreActionCreators.loadAuthors())
+    dispatch(coreActionCreators.loadGenres())
   }
-*/
-  configureRouter (config: any, router: any) {
+
+  async configureRouter (config: any, router: any) {
+    await waitForCoreEntitiesToLoad()
+
     config.title = 'Classical'
     config.map([
-      { route: '', moduleId: PLATFORM.moduleName('./search/search'), title: 'Search' },
+      { route: '', moduleId: PLATFORM.moduleName('./search/search'), title: 'Search', name: 'search' },
       { route: 'gigs/:id', moduleId: PLATFORM.moduleName('./details/details'), name: 'details' },
       { route: 'register', moduleId: PLATFORM.moduleName('./register/register'), name: 'register' },
-      { route: 'login', moduleId: PLATFORM.moduleName('./login/login'), name: 'login' }
+      { route: 'login', moduleId: PLATFORM.moduleName('./login/login'), name: 'login' },
+      { route: 'watchdogs', moduleId: PLATFORM.moduleName('./watchdog/watchdog'), name: 'watchdogs' }
     ])
 
     this.router = router
   }
 
-  attached () {
+  get isLoggedIn (): boolean {
+    return window.localStorage.getItem('token')
+  }
+
+  navigateToLoginPage () {
     if (
       !window.localStorage.getItem('token') &&
-      this.router.currentInstruction.config.name !== 'login'
+      this.router.currentInstruction.config.title !== 'login'
     ) {
-      console.log('here')
       this.router.navigate('login')
-    }
-
-    if (window.localStorage.getItem('token')) {
-      dispatch(coreActionCreators.loadVenues())
-      dispatch(coreActionCreators.loadAuthors())
-      dispatch(coreActionCreators.loadGenres())
     }
   }
 
   signout () {
     window.localStorage.removeItem('token')
-    this.router.navigate('login')
   }
+}
+
+let coreEntitiesReady = false
+
+function waitForCoreEntitiesToLoad () {
+  return new Promise(resolve =>
+    setInterval(() => {
+      if (coreEntitiesReady) resolve()
+    },
+    200))
+}
+
+export function continueBootstrapping () {
+  coreEntitiesReady = true
 }

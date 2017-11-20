@@ -8,11 +8,13 @@ import core from '../core/reducers'
 import details from '../details/reducers'
 import register from '../register/reducers'
 import login from '../login/reducers'
+import watchdog from '../watchdog/reducers'
 
 export default combineReducers({
   search,
   core,
   details,
   register,
-  login
+  login,
+  watchdog
 })

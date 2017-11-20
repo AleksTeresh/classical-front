@@ -13,7 +13,8 @@ import type {
   Genre,
   Author,
   GigResponse,
-  AuthorResponse
+  AuthorResponse,
+  Watchdog
 } from './types'
 
 const httpClient = new HttpClient()
@@ -188,7 +189,7 @@ export function createWatchdog (
   venueIds?: Array<number>,
   startDate?: string,
   endDate?: string
-) {
+): Promise<any> {
   return httpClient.fetch(
     '/api/watchdog',
     {
@@ -201,6 +202,31 @@ export function createWatchdog (
         genreIds,
         venueIds
       }),
+      headers: {
+        Authorization: 'Bearer ' + getToken()
+      }
+    }
+  )
+}
+
+export function fetchWatchdogs (): Promise<Array<Watchdog>> {
+  return httpClient.fetch(
+    '/api/watchdog',
+    {
+      method: 'GET',
+      headers: {
+        Authorization: 'Bearer ' + getToken()
+      }
+    }
+  )
+    .then(p => p.json())
+}
+
+export function removeWatchdog (id: number): Promise<any> {
+  return httpClient.fetch(
+    '/api/watchdog/' + id,
+    {
+      method: 'DELETE',
       headers: {
         Authorization: 'Bearer ' + getToken()
       }

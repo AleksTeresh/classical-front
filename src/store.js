@@ -10,6 +10,7 @@ import { detailsClientSaga } from './details/sagas'
 import { coreClientSaga } from './core/sagas'
 import { registerClientSaga } from './register/sagas'
 import { loginClientSaga } from './login/sagas'
+import { watchdogClientSaga } from './watchdog/sagas'
 
 // create the saga middleware
 const sagaMiddleware = createSagaMiddleware()
@@ -28,5 +29,6 @@ sagaMiddleware.run(detailsClientSaga)
 sagaMiddleware.run(coreClientSaga)
 sagaMiddleware.run(registerClientSaga)
 sagaMiddleware.run(loginClientSaga)
+sagaMiddleware.run(watchdogClientSaga)
 
 export default store
