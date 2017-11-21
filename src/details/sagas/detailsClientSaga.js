@@ -2,6 +2,8 @@
 /* global Generator */
 'use strict'
 
+import moment from 'moment'
+
 import { call, put, takeEvery } from 'redux-saga/effects'
 
 import * as client from '../../core/client'
@@ -10,57 +12,37 @@ function * fetchGig (
   action: { type: 'details-gig-load-request', id: number }
 ): Generator<any, any, any> {
   try {
-    const gig = yield call(client.fetchGig, action.id)
+    let gig = yield call(client.fetchGig, action.id)
+    let sameAuthorGigs = (yield call(
+      client.fetchGigs,
+      '',
+      30,
+      0,
+      gig.performances.map((p) => p.author.id),
+      null,
+      null,
+      moment().format('YYYY-MM-DD'),
+      moment().add(1 ,'y').format('YYYY-MM-DD')
+    )).gigs
+
+    sameAuthorGigs = sameAuthorGigs.filter((p) => p.id !== gig.id)
+    sameAuthorGigs.sort((a, b) => {
+      if (a.venue.id === b.venue.id) {
+        return 0
+      }
+
+      if (
+        a.venue.id === gig.venue.id && b.venue.id !== gig.venue.id
+      ) {
+        return -1
+      }
+
+      return 1
+    })
     yield put({
       type: 'details-gig-load-success',
       gig: gig,
-      suggestions: [
-        {
-          id: 1,
-          name: 'Tsaikovski evening',
-          description: 'Some relevant description goes here. It says about the event, the venue and other stuff.',
-          performances: [],
-          timestamp: 0,
-          duration: 0,
-          venue: {
-            id: 0,
-            name: '',
-            description: '',
-            lat: 0,
-            lng: 0
-          }
-        },
-        {
-          id: 2,
-          name: 'Tsaikovski morning',
-          description: 'Some relevant description goes here. It says about the event, the venue and other stuff.',
-          performances: [],
-          timestamp: 0,
-          duration: 0,
-          venue: {
-            id: 0,
-            name: '',
-            description: '',
-            lat: 0,
-            lng: 0
-          }
-        },
-        {
-          id: 3,
-          name: 'Tsaikovski afternoon',
-          description: 'Some relevant description goes here. It says about the event, the venue and other stuff.',
-          performances: [],
-          timestamp: 0,
-          duration: 0,
-          venue: {
-            id: 0,
-            name: '',
-            description: '',
-            lat: 0,
-            lng: 0
-          }
-        }
-      ]
+      suggestions: sameAuthorGigs.slice(0, 3)
     })
     if (gig.performances.length > 0) {
       yield put({
@@ -69,6 +51,8 @@ function * fetchGig (
       })
     }
   } catch (e) {
+    console.error(e)
+
     yield put({ type: 'details-gig-load-failure' })
   }
 }

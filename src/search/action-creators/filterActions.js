@@ -44,3 +44,21 @@ export function editEndDate (endDate: string): Action {
     endDate: endDate
   }
 }
+
+export function toggleAuthorIgnore (): Action {
+  return {
+    type: 'search-filter-author-ignore-toggle'
+  }
+}
+
+export function toggleStartDateIgnore (): Action {
+  return {
+    type: 'search-filter-start-date-ignore-toggle'
+  }
+}
+
+export function toggleEndDateIgnore (): Action {
+  return {
+    type: 'search-filter-end-date-ignore-toggle'
+  }
+}

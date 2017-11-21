@@ -12,7 +12,10 @@ const initialState: FilterState = {
   genres: [],
   startDate: '',
   endDate: '',
-  venues: []
+  venues: [],
+  ignoreAuthorFilter: false,
+  ignoreStartDateFilter: false,
+  ignoreEndDateFilter: false
 }
 
 export default function filterReducer (
@@ -24,7 +27,10 @@ export default function filterReducer (
       return {
         ...state,
         startDate: moment().format('DD.MM.YYYY'),
-        endDate: moment().add(1, 'y').format('DD.MM.YYYY')
+        endDate: moment().add(1, 'y').format('DD.MM.YYYY'),
+        ignoreAuthorFilter: false,
+        ignoreStartDateFilter: false,
+        ignoreEndDateFilter: false
       }
 
     case 'core-venues-load-success':
@@ -88,6 +94,24 @@ export default function filterReducer (
       return {
         ...state,
         endDate: action.endDate
+      }
+
+    case 'search-filter-author-ignore-toggle':
+      return {
+        ...state,
+        ignoreAuthorFilter: !state.ignoreAuthorFilter
+      }
+
+    case 'search-filter-start-date-ignore-toggle':
+      return {
+        ...state,
+        ignoreStartDateFilter: !state.ignoreStartDateFilter
+      }
+
+    case 'search-filter-end-date-ignore-toggle':
+      return {
+        ...state,
+        ignoreEndDateFilter: !state.ignoreEndDateFilter
       }
 
     default:

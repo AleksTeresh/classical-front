@@ -20,15 +20,22 @@ function * fetchGigs (action: GigLoadAction): Generator<any, any, any> {
       action.keyPhrase,
       config.fetchLimit.gig,
       0,
-      action.authors,
+      action.ignoreAuthorFilter
+      ? undefined
+      : action.authors,
       action.genres,
       action.venues,
-      moment(action.startDate, 'DD.MM.YYYY').format('YYYY-MM-DD'),
-      moment(action.endDate, 'DD.MM.YYYY').format('YYYY-MM-DD')
+      action.ignoreStartDateFilter
+      ? undefined
+      : moment(action.startDate, 'DD.MM.YYYY').format('YYYY-MM-DD'),
+      action.ignoreEndDateFilter
+      ? undefined
+      : moment(action.endDate, 'DD.MM.YYYY').format('YYYY-MM-DD')
     )
     yield put({ type: 'search-gigs-load-success', gigs: gigResponse.gigs })
     yield put({ type: 'search-pagination-gig-count-set', count: gigResponse.count })
   } catch (e) {
+    console.error(e)
     yield put({ type: 'search-gigs-load-failure' })
   }
 }
@@ -38,14 +45,21 @@ function * createWatchdog (action: CreateWatchdogAction): Generator<any, any, an
     yield call(
       client.createWatchdog,
       action.keyPhrase,
-      action.authors,
+      action.ignoreAuthorFilter
+      ? undefined
+      : action.authors,
       action.genres,
       action.venues,
-      moment(action.startDate, 'DD.MM.YYYY').format('YYYY-MM-DD'),
-      moment(action.endDate, 'DD.MM.YYYY').format('YYYY-MM-DD')
+      action.ignoreStartDateFilter
+      ? undefined
+      : moment(action.startDate, 'DD.MM.YYYY').format('YYYY-MM-DD'),
+      action.ignoreEndDateFilter
+      ? undefined
+      : moment(action.endDate, 'DD.MM.YYYY').format('YYYY-MM-DD')
     )
     yield put({ type: 'search-watchdog-create-success' })
   } catch (e) {
+    console.error(e)
     yield put({ type: 'search-watchdog-create-failure' })
   }
 }

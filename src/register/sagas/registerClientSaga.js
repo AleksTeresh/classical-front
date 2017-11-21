@@ -20,6 +20,7 @@ function * register (action: SubmitRegisterAction): Generator<any, any, any> {
     yield put({ type: 'register-submit-success' })
     location.assign('#/login/')
   } catch (e) {
+    console.error(e)
     yield put({ type: 'register-submit-failure' })
   }
 }

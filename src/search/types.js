@@ -19,7 +19,10 @@ export type FilterState = {
   genres: Array<number>,
   startDate: string,
   endDate: string,
-  venues: Array<number>
+  venues: Array<number>,
+  ignoreAuthorFilter: boolean,
+  ignoreStartDateFilter: boolean,
+  ignoreEndDateFilter: boolean
 }
 
 export type PaginationEntity = {

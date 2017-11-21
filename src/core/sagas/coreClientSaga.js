@@ -22,6 +22,7 @@ function * fetchAuthors (action: Action): Generator<any, any, any> {
     authorsReady = true
     checkEntitiesAreReady()
   } catch (e) {
+    console.error(e)
     yield put({ type: 'core-authors-load-failure' })
   }
 }
@@ -33,6 +34,7 @@ function * fetchVenues (action: Action): Generator<any, any, any> {
     genresReady = true
     checkEntitiesAreReady()
   } catch (e) {
+    console.error(e)
     yield put({ type: 'core-venues-load-failure' })
   }
 }
@@ -44,6 +46,7 @@ function * fetchGenres (action: Action): Generator<any, any, any> {
     venuesReady = true
     checkEntitiesAreReady()
   } catch (e) {
+    console.error(e)
     yield put({ type: 'core-genres-load-failure' })
   }
 }

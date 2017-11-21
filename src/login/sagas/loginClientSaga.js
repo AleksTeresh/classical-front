@@ -25,6 +25,7 @@ function * login (action: LoginSubmitAction): Generator<any, any, any> {
       yield put({ type: 'login-signin-failure' })
     }
   } catch (e) {
+    console.error(e)
     yield put({ type: 'login-signin-failure' })
   }
 }

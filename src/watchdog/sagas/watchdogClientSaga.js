@@ -32,6 +32,7 @@ function * fetchWatchdogs (action: FetchWatchdogsAction): Generator<any, any, an
     }))
     yield put({ type: 'watchdog-fetch-success', watchdogs: watchdogRepresentations })
   } catch (e) {
+    console.error(e)
     yield put({ type: 'watchdog-fetch-failure' })
   }
 }
@@ -44,6 +45,7 @@ function * removeWatchdog (action: RemoveWatchdogAction): Generator<any, any, an
     )
     yield put({ type: 'watchdog-remove-success' })
   } catch (e) {
+    console.error(e)
     yield put({ type: 'watchdog-remove-failure' })
   }
 }

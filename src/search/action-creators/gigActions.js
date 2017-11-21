@@ -10,7 +10,10 @@ export function load (
   endDate: string,
   genres: Array<number>,
   authors: Array<number>,
-  venues: Array<number>
+  venues: Array<number>,
+  ignoreAuthorFilter: boolean,
+  ignoreStartDateFilter: boolean,
+  ignoreEndDateFilter: boolean
 ): Action {
   return {
     type: 'search-gigs-load-request',
@@ -20,6 +23,9 @@ export function load (
     endDate: endDate,
     genres: genres,
     authors: authors,
-    venues: venues
+    venues: venues,
+    ignoreAuthorFilter: ignoreAuthorFilter,
+    ignoreStartDateFilter: ignoreStartDateFilter,
+    ignoreEndDateFilter: ignoreEndDateFilter
   }
 }

@@ -38,9 +38,19 @@
           <div class="form-group">
             <div class="form-group">
              <label for="sel1">Composers:</label>
+             <div class="checkbox">
+               <label>
+                 <input
+                  type="checkbox"
+                  change.delegate="toggleAuthorIgnore()"
+                  value.bind="search.filter.ignoreAuthorFilter">
+                 All
+               </label>
+             </div>
              <select
                 class="form-control"
                 id="sel1"
+                disabled.bind="search.filter.ignoreAuthorFilter"
                 multiple
                 change.delegate="toggleAuthor($event.target.options)"
                 size="13">
@@ -57,10 +67,29 @@
         <div class="col-sm-2">
           <div class="center">
             <label>Time range:</label>
+            <div class="checkbox">
+              <label>
+                <input
+                 type="checkbox"
+                 change.delegate="toggleStartDateIgnore()"
+                 value="${search.filter.ignoreStartDateFilter}">
+                No start date limit
+              </label>
+            </div>
+            <div class="checkbox">
+              <label>
+                <input
+                 type="checkbox"
+                 change.delegate="toggleEndDateIgnore()"
+                 value="${search.filter.ignoreEndDateFilter}">
+                No end date limit
+              </label>
+            </div>
             <div class="input-group">
               <input
                 id="start-date"
-                value="${search.filter.startDate}"
+                disabled.bind="search.filter.ignoreStartDateFilter"
+                value.bind="search.filter.startDate"
                 type="text"
                 class="form-control">
               <span class="input-group-addon"><i class="fa fa-calendar prefix"></i></span>
@@ -68,7 +97,8 @@
             <div class="input-group">
               <input
                 id="end-date"
-                value="${search.filter.endDate}"
+                disabled.bind="search.filter.ignoreEndDateFilter"
+                value.bind="search.filter.endDate"
                 type="text"
                 class="form-control">
               <span class="input-group-addon"><i class="fa fa-calendar prefix"></i></span>
@@ -115,9 +145,13 @@
   </div>
   <div class="row" style="margin-top: 35px;">
     <div class="col-sm-12">
-      <ul class="pagination">
-        <li>
-          <a repeat.for="i of search.pagination.gig.count">${i}</a>
+      <ul if.bind="numberOfPages > 1" class="pagination">
+        <li
+          repeat.for="i of numberOfPages"
+          class="${currentPage === i ? 'active' : ''}">
+          <a>
+            ${i + 1}
+          </a>
         </li>
       </ul>
 
@@ -132,9 +166,13 @@
         </a>
       </div>
 
-      <ul class="pagination">
-        <li>
-          <a repeat.for="i of search.pagination.gig.count">${i}</a>
+      <ul if.bind="numberOfPages > 1" class="pagination">
+        <li
+          repeat.for="i of numberOfPages"
+          class="${currentPage === i ? 'active' : ''}">
+          <a>
+            ${i + 1}
+          </a>
         </li>
       </ul>
     </div>

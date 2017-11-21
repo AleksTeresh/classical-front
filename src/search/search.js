@@ -31,7 +31,10 @@ export class Search {
       this.search.filter.endDate,
       this.search.filter.genres,
       this.search.filter.authors,
-      this.search.filter.venues
+      this.search.filter.venues,
+      this.search.filter.ignoreAuthorFilter,
+      this.search.filter.ignoreStartDateFilter,
+      this.search.filter.ignoreEndDateFilter
     ))
   }
 
@@ -75,6 +78,18 @@ export class Search {
     dispatch(actionCreators.filterActions.editEndDate(value))
   }
 
+  toggleAuthorIgnore() {
+    dispatch(actionCreators.filterActions.toggleAuthorIgnore())
+  }
+
+  toggleStartDateIgnore() {
+    dispatch(actionCreators.filterActions.toggleStartDateIgnore())
+  }
+
+  toggleEndDateIgnore() {
+    dispatch(actionCreators.filterActions.toggleEndDateIgnore())
+  }
+
   isVanueIncluded (venueId: number) {
     return this.search.filter.venues
       .includes(venueId)
@@ -85,6 +100,14 @@ export class Search {
       .includes(genreId)
   }
 
+  get numberOfPages (): number {
+    return Math.ceil(this.search.pagination.gig.count / config.fetchLimit.gig)
+  }
+
+  get currentPage (): number {
+    return this.search.pagination.gig.page
+  }
+
   submitFilter () {
     dispatch(actionCreators.gigActions.load(
       this.search.pagination.gig.page * config.fetchLimit.gig,
@@ -93,7 +116,10 @@ export class Search {
       this.search.filter.endDate,
       this.search.filter.genres,
       this.search.filter.authors,
-      this.search.filter.venues
+      this.search.filter.venues,
+      this.search.filter.ignoreAuthorFilter,
+      this.search.filter.ignoreStartDateFilter,
+      this.search.filter.ignoreEndDateFilter
     ))
   }
 
@@ -104,7 +130,10 @@ export class Search {
       this.search.filter.endDate,
       this.search.filter.genres,
       this.search.filter.authors,
-      this.search.filter.venues
+      this.search.filter.venues,
+      this.search.filter.ignoreAuthorFilter,
+      this.search.filter.ignoreStartDateFilter,
+      this.search.filter.ignoreEndDateFilter
     ))
   }
 

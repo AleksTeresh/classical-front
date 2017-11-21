@@ -9,7 +9,10 @@ export function createWatchdog (
   endDate: string,
   genres: Array<number>,
   authors: Array<number>,
-  venues: Array<number>
+  venues: Array<number>,
+  ignoreAuthorFilter: boolean,
+  ignoreStartDateFilter: boolean,
+  ignoreEndDateFilter: boolean
 ): Action {
   return {
     type: 'search-watchdog-create-request',
@@ -18,6 +21,9 @@ export function createWatchdog (
     endDate: endDate,
     genres: genres,
     authors: authors,
-    venues: venues
+    venues: venues,
+    ignoreAuthorFilter: ignoreAuthorFilter,
+    ignoreStartDateFilter: ignoreStartDateFilter,
+    ignoreEndDateFilter: ignoreEndDateFilter
   }
 }

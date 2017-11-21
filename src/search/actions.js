@@ -11,7 +11,10 @@ export type GigLoadAction = {
   offset: number,
   venues: Array<number>,
   genres: Array<number>,
-  authors: Array<number>
+  authors: Array<number>,
+  ignoreAuthorFilter: boolean,
+  ignoreStartDateFilter: boolean,
+  ignoreEndDateFilter: boolean
 }
 
 export type CreateWatchdogAction = {
@@ -21,7 +24,10 @@ export type CreateWatchdogAction = {
   endDate: string,
   venues: Array<number>,
   genres: Array<number>,
-  authors: Array<number>
+  authors: Array<number>,
+  ignoreAuthorFilter: boolean,
+  ignoreStartDateFilter: boolean,
+  ignoreEndDateFilter: boolean
 }
 
 export type SearchAction
@@ -42,6 +48,9 @@ export type SearchAction
   | { type: 'search-filter-genre-toggle', id: number }
   | { type: 'search-filter-start-date-edit', startDate: string }
   | { type: 'search-filter-end-date-edit', endDate: string }
+  | { type: 'search-filter-author-ignore-toggle' }
+  | { type: 'search-filter-start-date-ignore-toggle' }
+  | { type: 'search-filter-end-date-ignore-toggle' }
 
   // Paginationactions
   | { type: 'search-pagination-gig-count-set', count: number }
