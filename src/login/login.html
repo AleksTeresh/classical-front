@@ -5,21 +5,27 @@
                 col-lg-4 col-lg-offset-4">
       <form>
         <div class="center">
-          <div class="form-group">
+          <div
+            class="form-group ${emailErrors.length > 0 ? 'has-error' : ''} has-feedback"
+            validation-errors.bind="emailErrors">
             <label>Email:</label>
             <input
-              value="${login.email}"
+              value.bind="email & validate"
               keyup.delegate="editEmail($event.target.value)"
               type="email"
               class="form-control">
+            <small style="color: red;" repeat.for="errorInfo of emailErrors">${errorInfo.error.message}</small>
           </div>
-          <div class="form-group">
+          <div
+            class="form-group ${passwordErrors.length > 0 ? 'has-error' : ''} has-feedback"
+            validation-errors.bind="passwordErrors">
             <label>Password:</label>
             <input
-              value="${login.password}"
+              value.bind="password & validate"
               keyup.delegate="editPassword($event.target.value)"
               type="password"
               class="form-control">
+            <small style="color: red;" repeat.for="errorInfo of passwordErrors">${errorInfo.error.message}</small>
           </div>
           <p>Not registered yet? <a route-href="route: register;">Register now!</a></p>
           <button

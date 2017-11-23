@@ -78,15 +78,15 @@ export class Search {
     dispatch(actionCreators.filterActions.editEndDate(value))
   }
 
-  toggleAuthorIgnore() {
+  toggleAuthorIgnore () {
     dispatch(actionCreators.filterActions.toggleAuthorIgnore())
   }
 
-  toggleStartDateIgnore() {
+  toggleStartDateIgnore () {
     dispatch(actionCreators.filterActions.toggleStartDateIgnore())
   }
 
-  toggleEndDateIgnore() {
+  toggleEndDateIgnore () {
     dispatch(actionCreators.filterActions.toggleEndDateIgnore())
   }
 
@@ -108,6 +108,10 @@ export class Search {
     return this.search.pagination.gig.page
   }
 
+  get isLoggedIn (): boolean {
+    return window.localStorage.getItem('token')
+  }
+
   submitFilter () {
     dispatch(actionCreators.gigActions.load(
       this.search.pagination.gig.page * config.fetchLimit.gig,
@@ -125,6 +129,22 @@ export class Search {
 
   createWatchdog () {
     dispatch(actionCreators.watchdogActions.createWatchdog(
+      this.search.filter.search,
+      this.search.filter.startDate,
+      this.search.filter.endDate,
+      this.search.filter.genres,
+      this.search.filter.authors,
+      this.search.filter.venues,
+      this.search.filter.ignoreAuthorFilter,
+      this.search.filter.ignoreStartDateFilter,
+      this.search.filter.ignoreEndDateFilter
+    ))
+  }
+
+  setGigPage (value: number) {
+    dispatch(actionCreators.paginationActions.setGigPage(value))
+    dispatch(actionCreators.gigActions.load(
+      value * config.fetchLimit.gig,
       this.search.filter.search,
       this.search.filter.startDate,
       this.search.filter.endDate,

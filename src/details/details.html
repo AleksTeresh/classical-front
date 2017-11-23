@@ -18,7 +18,8 @@
       <div class="col-sm-5">
           <h2>${details.gig.name}</h2>
           <h4>${getTime()}</h4>
-          <h4>${getDuration()}</h4>
+          <h4 if.bind="details.gig.duration > 0">The duration is ${getDuration()}</h4>
+          <p>The link of the event: <a href.bind="details.gig.url">${details.gig.url}</a></p>
           <hr>
           <p>${details.gig.description}</p>
       </div>
@@ -43,6 +44,14 @@
           width="560" height="315"
           src="https://www.youtube.com/embed/${getSelectedId}">
         </iframe>
+        <div>
+          <h3>About the composer</h3>
+          <p>${selectedAuthorDescription}</p>
+          <p>
+            More about the composer:
+            <a href.bind="selectedAuthorWikiLink">${selectedAuthorWikiLink}</a>
+          </p>
+        </div>
     </div>
     <!--Grid column-->
   </div>

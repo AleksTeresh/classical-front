@@ -22,7 +22,7 @@ function * fetchGig (
       null,
       null,
       moment().format('YYYY-MM-DD'),
-      moment().add(1 ,'y').format('YYYY-MM-DD')
+      moment().add(1, 'y').format('YYYY-MM-DD')
     )).gigs
 
     sameAuthorGigs = sameAuthorGigs.filter((p) => p.id !== gig.id)

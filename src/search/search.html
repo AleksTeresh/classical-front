@@ -136,6 +136,7 @@
 
           <button
             class="btn btn-primary"
+            disabled="isLoggedIn"
             click.delegate="createWatchdog()">
             Create watchdog
           </button>
@@ -148,6 +149,7 @@
       <ul if.bind="numberOfPages > 1" class="pagination">
         <li
           repeat.for="i of numberOfPages"
+          click.delegate="setGigPage(i)"
           class="${currentPage === i ? 'active' : ''}">
           <a>
             ${i + 1}
@@ -169,6 +171,7 @@
       <ul if.bind="numberOfPages > 1" class="pagination">
         <li
           repeat.for="i of numberOfPages"
+          click.delegate="setGigPage(i)"
           class="${currentPage === i ? 'active' : ''}">
           <a>
             ${i + 1}

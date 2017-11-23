@@ -23,7 +23,7 @@ export type Genre = {
 
 export type Performance = {
   id: number,
-  author: string,
+  author: Author,
   conductor?: string,
   player?: string,
   name: string,

@@ -16,6 +16,7 @@ export function configure (aurelia: Aurelia) {
   aurelia.use
     .standardConfiguration()
     .feature(PLATFORM.moduleName('resources/index'))
+    .plugin(PLATFORM.moduleName('aurelia-validation'))
     // .plugin(PLATFORM.moduleName('aurelia-ux'))
 
   // Uncomment the line below to enable animation.

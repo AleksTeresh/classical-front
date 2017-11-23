@@ -19,7 +19,7 @@ function * fetchGigs (action: GigLoadAction): Generator<any, any, any> {
       client.fetchGigs,
       action.keyPhrase,
       config.fetchLimit.gig,
-      0,
+      action.offset,
       action.ignoreAuthorFilter
       ? undefined
       : action.authors,

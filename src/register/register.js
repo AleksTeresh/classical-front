@@ -1,21 +1,64 @@
 /* @flow */
 'use strict'
 
+import { inject } from 'aurelia-framework'
+import {
+    Validator,
+    ValidationControllerFactory,
+    ValidationRules,
+    validateTrigger
+} from 'aurelia-validation'
+
 import { subscribe, dispatch, getState } from '../core/storeHandler'
 import * as actionCreators from './action-creators'
 
 import type { RegisterState } from './types'
 import type { AppState } from '../types'
 
+@inject(ValidationControllerFactory, Validator)
 export class Register {
   register: RegisterState;
+  controller: any;
+  canSubmit: boolean;
+  validator: any;
 
-  constructor () {
+  // password: string;
+
+  constructor (controllerFactory: any, validator: any) {
     subscribe(this.update.bind(this))
 
     dispatch(actionCreators.inputActions.reset())
 
     this.register = getState().register
+
+    this.validator = validator
+
+    this.canSubmit = false
+    this.controller = controllerFactory.createForCurrentScope(validator)
+    this.controller.validateTrigger = validateTrigger.changeOrBlur
+    this.controller.subscribe(event => this.validateWhole())
+  }
+
+  activate () {
+    this.setupValidation()
+  }
+
+  validateWhole () {
+    this.validator.validateObject(this)
+        .then(results => {
+          this.canSubmit = results.every(result => result.valid)
+        })
+  }
+
+  setupValidation () {
+    ValidationRules
+      .ensure('email').email().required()
+      .ensure('password').required().minLength(6)
+        .withMessage('Password must at least be 6 chars long.')
+      .ensure('passwordRepeat').required()
+        .satisfies((v) => v === this.register.input.password).withMessage('The value does not match the password')
+      .ensure('name').required()
+      .on(this)
   }
 
   editEmail (value: string) {

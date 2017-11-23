@@ -8,10 +8,12 @@ import * as actionCreators from './action-creators'
 
 import type { DetailsState } from './types'
 import type { AppState } from '../types'
+// import type { Performance } from '../core/types'
 
 export default class Details {
   details: DetailsState
   routeConfig: any;
+  // selectedPerformance: Performance;
 
   constructor () {
     subscribe(this.update.bind(this))
@@ -33,6 +35,28 @@ export default class Details {
     }
 
     return selectedPerformance.youtubeId
+  }
+
+  get selectedAuthorWikiLink (): string {
+    const selectedPerformance = this.details.gig.performances
+      .filter((p) => p.id === this.details.selection.performanceId)[0]
+
+    if (!selectedPerformance || !selectedPerformance.author) {
+      return '' // a hardcoded default
+    }
+
+    return selectedPerformance.author.wikipediaLink
+  }
+
+  get selectedAuthorDescription (): string {
+    const selectedPerformance = this.details.gig.performances
+      .filter((p) => p.id === this.details.selection.performanceId)[0]
+
+    if (!selectedPerformance || !selectedPerformance.author) {
+      return '' // a hardcoded default
+    }
+
+    return selectedPerformance.author.description || ''
   }
 
   getTime () {

@@ -1,6 +1,9 @@
 <template>
    <!--Grid row-->
    <div class="row">
+       <h3 if.bind="suggestions.size > 0">
+         More events featuring the same composers
+       </h3>
        <!--Grid column-->
        <div repeat.for="suggestion of suggestions" class="col-lg-4 col-md-12 mb-4">
 
@@ -21,7 +24,11 @@
                    <h4 class="card-title">${suggestion.name}</h4>
                    <!--Text-->
                    <p class="card-text">${suggestion.description}</p>
-                   <button class="btn btn-primary">More</button>
+                   <button
+                     click.delegate="navigateToGig(suggestion.id)"
+                     class="btn btn-primary">
+                     More
+                   </button>
                </div>
 
            </div>
