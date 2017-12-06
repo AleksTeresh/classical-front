@@ -149,7 +149,7 @@
     "flow": "flow",
     "lint": "standard",
     "build": "npm run clean && webpack",
-    "start-server": "cubx-http-server ./dist -p 80 --proxy=http://back-end:8085"
+    "start-server": "cubx-http-server ./dist -p 8080 --proxy=https://localhost:8085"
   },
   "main": "dist/app.bundle.js"
 }

@@ -28,3 +28,4 @@ scripts
 
 npm-debug.log
 test/coverage-jest
+dist
