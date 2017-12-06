@@ -44,7 +44,7 @@ module.exports = ({production, server, extractCss, coverage} = {}) => ({
     historyApiFallback: true,
     proxy: {
       '/api/**': {
-        target: 'http://localhost:8085',
+        target: 'https://localhost:8085',
         secure: false,
         changeOrigin: true
       }

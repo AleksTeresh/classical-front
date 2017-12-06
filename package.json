@@ -18,8 +18,10 @@
     "bootstrap": "^3.3.7",
     "bootstrap-datepicker": "^1.7.1",
     "bootstrap-select": "^1.12.4",
+    "express": "^4.16.2",
     "font-awesome": "^4.7.0",
     "fuse.js": "^3.2.0",
+    "http-proxy": "^1.16.2",
     "immutable": "^3.8.2",
     "mdbootstrap": "^4.4.3",
     "moment": "^2.19.2",
@@ -132,9 +134,12 @@
   "standard": {
     "ignore": [
       "dist",
+      "public",
       "node_modules",
       "test",
-      "aurelia_project"
+      "aurelia_project",
+      "server.js",
+      "lib"
     ],
     "plugins": [
       "flowtype",
@@ -144,12 +149,12 @@
   },
   "scripts": {
     "start": "nps",
-    "clean": "rm -rf dist/*",
+    "clean": "rm -rf public/*",
     "test": "npm run lint && npm run flow && nps test",
     "flow": "flow",
     "lint": "standard",
     "build": "npm run clean && webpack",
-    "start-server": "cubx-http-server ./dist -p 8080 --proxy=https://localhost:8085"
+    "start-server": "node server.js"
   },
-  "main": "dist/app.bundle.js"
+  "main": "public/app.bundle.js"
 }

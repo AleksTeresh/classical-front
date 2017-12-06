@@ -29,3 +29,6 @@ scripts
 npm-debug.log
 test/coverage-jest
 dist
+public
+key.pem
+cert.pem

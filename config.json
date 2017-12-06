@@ -1,0 +1,8 @@
+{
+  "port": 8080,
+  "ssl": true,
+  "endpoint": "localhost:8085",
+  "endpointSSL": true,
+  "secureSSL": false,
+  "respondWith": "/dist/index.html"
+}
