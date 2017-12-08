@@ -1,6 +1,8 @@
 {
   "port": 8080,
+  "sslPort": 8070,
   "ssl": true,
+  "redirectHttp": true,
   "endpoint": "localhost:8085",
   "endpointSSL": true,
   "secureSSL": false,

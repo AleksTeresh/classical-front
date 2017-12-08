@@ -12,6 +12,7 @@ export function load (
   authors: Array<number>,
   venues: Array<number>,
   ignoreAuthorFilter: boolean,
+  ignoreGenreFilter: boolean,
   ignoreStartDateFilter: boolean,
   ignoreEndDateFilter: boolean
 ): Action {
@@ -25,6 +26,7 @@ export function load (
     authors: authors,
     venues: venues,
     ignoreAuthorFilter: ignoreAuthorFilter,
+    ignoreGenreFilter: ignoreGenreFilter,
     ignoreStartDateFilter: ignoreStartDateFilter,
     ignoreEndDateFilter: ignoreEndDateFilter
   }

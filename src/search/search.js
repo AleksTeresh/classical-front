@@ -2,6 +2,7 @@
 'use strict'
 
 import $ from 'jquery'
+import moment from 'moment'
 
 import { subscribe, dispatch, getState } from '../core/storeHandler'
 import * as actionCreators from './action-creators'
@@ -21,7 +22,7 @@ export class Search {
   constructor () {
     subscribe(this.update.bind(this))
 
-    dispatch(actionCreators.generalActions.start())
+    // dispatch(actionCreators.generalActions.start())
 
     this.search = getState().search
     dispatch(actionCreators.gigActions.load(
@@ -33,6 +34,7 @@ export class Search {
       this.search.filter.authors,
       this.search.filter.venues,
       this.search.filter.ignoreAuthorFilter,
+      this.search.filter.ignoreGenreFilter,
       this.search.filter.ignoreStartDateFilter,
       this.search.filter.ignoreEndDateFilter
     ))
@@ -82,6 +84,10 @@ export class Search {
     dispatch(actionCreators.filterActions.toggleAuthorIgnore())
   }
 
+  toggleGenreIgnore () {
+    dispatch(actionCreators.filterActions.toggleGenreIgnore())
+  }
+
   toggleStartDateIgnore () {
     dispatch(actionCreators.filterActions.toggleStartDateIgnore())
   }
@@ -122,6 +128,7 @@ export class Search {
       this.search.filter.authors,
       this.search.filter.venues,
       this.search.filter.ignoreAuthorFilter,
+      this.search.filter.ignoreGenreFilter,
       this.search.filter.ignoreStartDateFilter,
       this.search.filter.ignoreEndDateFilter
     ))
@@ -136,6 +143,7 @@ export class Search {
       this.search.filter.authors,
       this.search.filter.venues,
       this.search.filter.ignoreAuthorFilter,
+        this.search.filter.ignoreGenreFilter,
       this.search.filter.ignoreStartDateFilter,
       this.search.filter.ignoreEndDateFilter
     ))
@@ -152,6 +160,7 @@ export class Search {
       this.search.filter.authors,
       this.search.filter.venues,
       this.search.filter.ignoreAuthorFilter,
+        this.search.filter.ignoreGenreFilter,
       this.search.filter.ignoreStartDateFilter,
       this.search.filter.ignoreEndDateFilter
     ))
@@ -162,5 +171,25 @@ export class Search {
     this.authors = state.core.authors.authors
     this.genres = state.core.genres
     this.venues = state.core.venues
+  }
+
+  getDayOfWeek (time: number): string {
+    return moment(time).format('dddd')
+  }
+
+  getDayOfMonth (time: number): string {
+    return moment(time).format('D')
+  }
+
+  getYear (time: number): string {
+    return moment(time).format('YYYY')
+  }
+
+  getMonth (time: number): string {
+    return moment(time).format('MMMM')
+  }
+
+  getStringDateTime (time: number): string {
+    return moment(time).format('YYYY-MM-DD')
   }
 }

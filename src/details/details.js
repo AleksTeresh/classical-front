@@ -59,11 +59,11 @@ export default class Details {
     return selectedPerformance.author.description || ''
   }
 
-  getTime () {
-    return moment(this.details.gig.timestamp).format('D MMM YYYY')
+  get time (): string {
+    return moment(this.details.gig.timestamp * 1000).format('D MMM YYYY')
   }
 
-  getDuration () {
+  get duration (): string {
     return moment.duration(this.details.gig.duration, 'seconds').humanize()
   }
 

@@ -10,10 +10,11 @@ const initialState: FilterState = {
   search: '',
   authors: [],
   genres: [],
-  startDate: '',
-  endDate: '',
+  startDate: moment().format('DD.MM.YYYY'),
+  endDate: moment().add(1, 'y').format('DD.MM.YYYY'),
   venues: [],
   ignoreAuthorFilter: false,
+  ignoreGenreFilter: false,
   ignoreStartDateFilter: false,
   ignoreEndDateFilter: false
 }
@@ -29,6 +30,7 @@ export default function filterReducer (
         startDate: moment().format('DD.MM.YYYY'),
         endDate: moment().add(1, 'y').format('DD.MM.YYYY'),
         ignoreAuthorFilter: false,
+        ignoreGenreFilter: false,
         ignoreStartDateFilter: false,
         ignoreEndDateFilter: false
       }
@@ -100,6 +102,12 @@ export default function filterReducer (
       return {
         ...state,
         ignoreAuthorFilter: !state.ignoreAuthorFilter
+      }
+
+    case 'search-filter-genre-ignore-toggle':
+      return {
+        ...state,
+        ignoreGenreFilter: !state.ignoreGenreFilter
       }
 
     case 'search-filter-start-date-ignore-toggle':

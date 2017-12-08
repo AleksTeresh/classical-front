@@ -137,6 +137,7 @@
       "public",
       "node_modules",
       "test",
+      "lib",
       "aurelia_project",
       "server.js",
       "lib"

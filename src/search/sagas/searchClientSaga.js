@@ -23,7 +23,9 @@ function * fetchGigs (action: GigLoadAction): Generator<any, any, any> {
       action.ignoreAuthorFilter
       ? undefined
       : action.authors,
-      action.genres,
+      action.ignoreGenreFilter
+      ? undefined
+      : action.genres,
       action.venues,
       action.ignoreStartDateFilter
       ? undefined
@@ -48,7 +50,9 @@ function * createWatchdog (action: CreateWatchdogAction): Generator<any, any, an
       action.ignoreAuthorFilter
       ? undefined
       : action.authors,
-      action.genres,
+      action.ignoreGenreFilter
+      ? undefined
+      : action.genres,
       action.venues,
       action.ignoreStartDateFilter
       ? undefined

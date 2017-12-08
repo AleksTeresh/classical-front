@@ -51,6 +51,12 @@ export function toggleAuthorIgnore (): Action {
   }
 }
 
+export function toggleGenreIgnore (): Action {
+  return {
+    type: 'search-filter-genre-ignore-toggle'
+  }
+}
+
 export function toggleStartDateIgnore (): Action {
   return {
     type: 'search-filter-start-date-ignore-toggle'

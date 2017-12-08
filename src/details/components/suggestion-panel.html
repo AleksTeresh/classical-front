@@ -23,7 +23,7 @@
                    <!--Title-->
                    <h4 class="card-title">${suggestion.name}</h4>
                    <!--Text-->
-                   <p class="card-text">${suggestion.description}</p>
+                   <p class="card-text" innerhtml.bind="suggestion.description"></p>
                    <button
                      click.delegate="navigateToGig(suggestion.id)"
                      class="btn btn-primary">

@@ -20,48 +20,58 @@
         </div>
         <div class="col-sm-3">
           <div class="form-group">
-            <label>Genres:</label>
-            <div class="checkbox" repeat.for="genre of genres">
+            <label for="sel1">Genres:</label>
+            <div class="checkbox">
               <label>
                 <input
-                  type="checkbox"
-                  change.delegate="toggleGenre(genre.id)"
-                  checked="isGenreIncluded(genre.id)">
-                  <label>
-                    ${genre.name}
-                  </label>
+                 type="checkbox"
+                 change.delegate="toggleGenreIgnore()"
+                 value.bind="search.filter.ignoreGenreFilter">
+                All
               </label>
             </div>
+            <select
+               class="form-control"
+               id="sel2"
+               disabled.bind="search.filter.ignoreGenreFilter"
+               multiple
+               change.delegate="toggleGenre($event.target.options)"
+               size="13">
+              <option
+               repeat.for="genre of genres"
+               value="${genre.id}"
+               selected="search.filter.genres.includes(genre.id)">
+                ${genre.name}
+              </option>
+            </select>
           </div>
         </div>
         <div class="col-sm-3">
           <div class="form-group">
-            <div class="form-group">
-             <label for="sel1">Composers:</label>
-             <div class="checkbox">
-               <label>
-                 <input
-                  type="checkbox"
-                  change.delegate="toggleAuthorIgnore()"
-                  value.bind="search.filter.ignoreAuthorFilter">
-                 All
-               </label>
-             </div>
-             <select
-                class="form-control"
-                id="sel1"
-                disabled.bind="search.filter.ignoreAuthorFilter"
-                multiple
-                change.delegate="toggleAuthor($event.target.options)"
-                size="13">
-               <option
-                repeat.for="author of authors"
-                value="${author.id}"
-                selected="search.filter.authors.includes(author.id)">
-                 ${author.name}
-               </option>
-             </select>
-            </div>
+           <label for="sel1">Composers:</label>
+           <div class="checkbox">
+             <label>
+               <input
+                type="checkbox"
+                change.delegate="toggleAuthorIgnore()"
+                value.bind="search.filter.ignoreAuthorFilter">
+               All
+             </label>
+           </div>
+           <select
+              class="form-control"
+              id="sel1"
+              disabled.bind="search.filter.ignoreAuthorFilter"
+              multiple
+              change.delegate="toggleAuthor($event.target.options)"
+              size="13">
+             <option
+              repeat.for="author of authors"
+              value="${author.id}"
+              selected="search.filter.authors.includes(author.id)">
+               ${author.name}
+             </option>
+           </select>
           </div>
         </div>
         <div class="col-sm-2">
@@ -158,14 +168,30 @@
       </ul>
 
       <div class="list-group">
-        <a
-          class="list-group-item"
+        <div
+          class="row"
+          style="height: 300px; margin-botton: 30px;"
           repeat.for="gig of search.gig.filtered"
           route-href="route: details; params.bind: {id: gig.id}">
-          <img src="${gig.imageUrl}" />
-          <h4>${gig.name}</h4>
-          <h8>${gig.description}</h8>
-        </a>
+          <div style="height: 100%;" class="col-sm-3">
+            <img style="width: 100%;" src="${gig.imageUrl}" />
+          </div>
+          <div class="col-sm-6">
+            <h4>
+              ${gig.name}
+              <a href.bind="gig.url" style="font-size: 80%;">(${gig.url})</a>
+            </h4>
+            <h8 innerhtml.bind="gig.description"></h8>
+          </div>
+          <div class="col-sm-3" style="margin-top: 70px;">
+            <time datetime="${getStringDateTime(gig.timetamp)}" class="date-as-calendar inline-flex size2x">
+              <span class="weekday">${getDayOfWeek(gig.timetamp)}</span>
+              <span class="day">${getDayOfMonth(gig.timetamp)}</span>
+              <span class="month">${getMonth(gig.timetamp)}</span>
+              <span class="year">${getYear(gig.timetamp)}</span>
+            </time>
+          </div>
+        </div>
       </div>
 
       <ul if.bind="numberOfPages > 1" class="pagination">

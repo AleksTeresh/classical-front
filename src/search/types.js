@@ -21,6 +21,7 @@ export type FilterState = {
   endDate: string,
   venues: Array<number>,
   ignoreAuthorFilter: boolean,
+  ignoreGenreFilter: boolean,
   ignoreStartDateFilter: boolean,
   ignoreEndDateFilter: boolean
 }
