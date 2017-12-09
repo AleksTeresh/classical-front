@@ -30,6 +30,7 @@ export type Performance = {
   description: string,
   imageUrl?: string,
   youtubeId?: string,
+  wikipediaLink: string,
   genres: Array<Genre>
 }
 

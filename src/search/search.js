@@ -87,7 +87,6 @@ export class Search {
   }
 
   toggleGenreIgnore () {
-    console.log('called')
     dispatch(actionCreators.filterActions.toggleGenreIgnore())
   }
 
@@ -118,7 +117,9 @@ export class Search {
   }
 
   get isLoggedIn (): boolean {
-    return window.localStorage.getItem('token')
+    const token = window.localStorage.getItem('token')
+    return token !== undefined && token !== null &&
+      token !== '' && token !== 'undefined'
   }
 
   submitFilter () {

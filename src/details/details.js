@@ -8,17 +8,18 @@ import * as actionCreators from './action-creators'
 
 import type { DetailsState } from './types'
 import type { AppState } from '../types'
-// import type { Performance } from '../core/types'
+import type { Performance } from '../core/types'
 
 export default class Details {
   details: DetailsState
   routeConfig: any;
-  // selectedPerformance: Performance;
+
+  selectedPerformance: Performance;
 
   constructor () {
     subscribe(this.update.bind(this))
 
-    this.details = getState().details
+    this.update(getState())
   }
   activate (params: any, routeConfig: any) {
     this.routeConfig = routeConfig
@@ -26,37 +27,52 @@ export default class Details {
     dispatch(actionCreators.gigActions.load(params.id))
   }
 
-  get getSelectedId (): string {
-    const selectedPerformance = this.details.gig.performances
-      .filter((p) => p.id === this.details.selection.performanceId)[0]
-
-    if (!selectedPerformance || !selectedPerformance.youtubeId) {
-      return 'KpOtuoHL45Y' // a hardcoded default
+  get selectedId (): string {
+    if (!this.selectedPerformance || !this.selectedPerformance.youtubeId) {
+      return ''
     }
 
-    return selectedPerformance.youtubeId
+    return this.selectedPerformance.youtubeId
   }
 
   get selectedAuthorWikiLink (): string {
-    const selectedPerformance = this.details.gig.performances
-      .filter((p) => p.id === this.details.selection.performanceId)[0]
-
-    if (!selectedPerformance || !selectedPerformance.author) {
-      return '' // a hardcoded default
+    if (!this.selectedPerformance || !this.selectedPerformance.author) {
+      return ''
     }
 
-    return selectedPerformance.author.wikipediaLink
+    return this.selectedPerformance.author.wikipediaLink
+  }
+
+  get selectedAuthorName (): string {
+    if (!this.selectedPerformance || !this.selectedPerformance.author) {
+      return ''
+    }
+
+    return this.selectedPerformance.author.name || ''
   }
 
   get selectedAuthorDescription (): string {
-    const selectedPerformance = this.details.gig.performances
-      .filter((p) => p.id === this.details.selection.performanceId)[0]
-
-    if (!selectedPerformance || !selectedPerformance.author) {
-      return '' // a hardcoded default
+    if (!this.selectedPerformance || !this.selectedPerformance.author) {
+      return ''
     }
 
-    return selectedPerformance.author.description || ''
+    return this.selectedPerformance.author.description || ''
+  }
+
+  get selectedOpusName (): string {
+    if (!this.selectedPerformance) {
+      return ''
+    }
+
+    return this.selectedPerformance.name || ''
+  }
+
+  get selectedOpusWikiLink (): string {
+    if (!this.selectedPerformance) {
+      return ''
+    }
+
+    return this.selectedPerformance.wikipediaLink || ''
   }
 
   get time (): string {
@@ -69,5 +85,8 @@ export default class Details {
 
   update (state: AppState) {
     this.details = state.details
+
+    this.selectedPerformance = this.details.gig.performances
+      .filter((p) => p.id === this.details.selection.performanceId)[0]
   }
 }

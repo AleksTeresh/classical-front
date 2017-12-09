@@ -24,8 +24,12 @@ function * fetchWatchdogs (action: FetchWatchdogsAction): Generator<any, any, an
 
     const watchdogRepresentations = watchdogs.map((p) => ({
       id: p.id,
-      startDate: p.startDate.substring(0, p.startDate.length - 9),
-      endDate: p.startDate.substring(0, p.endDate.length - 9),
+      startDate: p.startDate
+      ? p.startDate.substring(0, p.startDate.length - 9)
+      : p.startDate,
+      endDate: p.endDate
+      ? p.endDate.substring(0, p.endDate.length - 9)
+      : p.endDate,
       authors: p.authorIds.map((p) => authors.filter((s) => s.id === p)[0].name),
       genres: p.genreIds.map((p) => genres.filter((s) => s.id === p)[0].name),
       venues: p.venueIds.map((p) => venues.filter((s) => s.id === p)[0].name)

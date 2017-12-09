@@ -130,7 +130,7 @@
             style="float: right"
             style="display: inline;"
             class="btn btn-primary"
-            disabled="isLoggedIn"
+            disabled.bind="!isLoggedIn"
             click.delegate="createWatchdog()">
             Create watchdog
           </button>

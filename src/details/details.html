@@ -40,9 +40,15 @@
 
     <!--Grid column-->
     <div class="col-sm-7">
+        <h3>${selectedAuthorName} - ${selectedOpusName}</h3>
+        <a
+          href.bind="selectedOpusWikiLink">
+          ${selectedOpusWikiLink}
+        </a>
         <iframe
+          style="margin-top: 20px;"
           width="560" height="315"
-          src="https://www.youtube.com/embed/${getSelectedId}">
+          src="https://www.youtube.com/embed/${selectedId}">
         </iframe>
         <div>
           <h3>About the composer</h3>
