@@ -19,6 +19,8 @@ export class Search {
   venues: Array<Venue>;
   genres: Array<Genre>;
 
+  selectedVenueIds: Array<string>
+
   constructor () {
     subscribe(this.update.bind(this))
 
@@ -65,7 +67,7 @@ export class Search {
   }
 
   toggleVenue (authorId: number) {
-    dispatch(actionCreators.filterActions.toggleVenue(authorId))
+    dispatch(actionCreators.filterActions.toggleVenue(Number(authorId)))
   }
 
   toggleGenre (authorId: number) {
@@ -85,6 +87,7 @@ export class Search {
   }
 
   toggleGenreIgnore () {
+    console.log('called')
     dispatch(actionCreators.filterActions.toggleGenreIgnore())
   }
 
@@ -171,6 +174,9 @@ export class Search {
     this.authors = state.core.authors.authors
     this.genres = state.core.genres
     this.venues = state.core.venues
+
+    this.selectedVenueIds = state.search.filter.venues
+      .map((p) => p.toString())
   }
 
   getDayOfWeek (time: number): string {
@@ -191,5 +197,14 @@ export class Search {
 
   getStringDateTime (time: number): string {
     return moment(time).format('YYYY-MM-DD')
+  }
+/*
+  preventPropagation (event: any) {
+    event.stopPropagation()
+    console.log('propagation is stopped', event)
+  }
+*/
+  resetFilters () {
+    dispatch(actionCreators.generalActions.reset())
   }
 }

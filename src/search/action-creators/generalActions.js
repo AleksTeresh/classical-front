@@ -3,8 +3,8 @@
 
 import type { Action } from '../../actions'
 
-export function start (): Action {
+export function reset (): Action {
   return {
-    type: 'search-start'
+    type: 'search-reset'
   }
 }

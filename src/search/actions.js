@@ -41,7 +41,7 @@ export type SearchAction
   | { type: 'search-watchdog-create-success' }
   | { type: 'search-watchdog-create-failure' }
 
-  | { type: 'search-start' }
+  | { type: 'search-reset' }
 
   // Filter actions
   | { type: 'search-filter-search-edit', search: string }

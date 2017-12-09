@@ -139,7 +139,7 @@
       "test",
       "lib",
       "aurelia_project",
-      "server.js",
+      "./server.js",
       "lib"
     ],
     "plugins": [

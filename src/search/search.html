@@ -1,4 +1,6 @@
 <template>
+  <require from="../core/components/link"></require>
+
   <div class="row">
     <div class="col-sm-12">
       <form>
@@ -10,10 +12,9 @@
                 <input
                   type="checkbox"
                   change.delegate="toggleVenue(venue.id)"
-                  checked="isVanueIncluded(venue.id)">
-                  <label>
-                    ${venue.name}
-                  </label>
+                  checked.bind="selectedVenueIds"
+                  value.bind="venue.id">
+                  ${venue.name}
               </label>
             </div>
           </div>
@@ -26,7 +27,7 @@
                 <input
                  type="checkbox"
                  change.delegate="toggleGenreIgnore()"
-                 value.bind="search.filter.ignoreGenreFilter">
+                 checked.one-way="search.filter.ignoreGenreFilter">
                 All
               </label>
             </div>
@@ -54,7 +55,7 @@
                <input
                 type="checkbox"
                 change.delegate="toggleAuthorIgnore()"
-                value.bind="search.filter.ignoreAuthorFilter">
+                checked.one-way="search.filter.ignoreAuthorFilter">
                All
              </label>
            </div>
@@ -67,8 +68,8 @@
               size="13">
              <option
               repeat.for="author of authors"
-              value="${author.id}"
-              selected="search.filter.authors.includes(author.id)">
+              value.bind="author.id"
+              selected.bind="search.filter.authors.includes(author.id)">
                ${author.name}
              </option>
            </select>
@@ -82,7 +83,7 @@
                 <input
                  type="checkbox"
                  change.delegate="toggleStartDateIgnore()"
-                 value="${search.filter.ignoreStartDateFilter}">
+                 checked.one-way="search.filter.ignoreStartDateFilter">
                 No start date limit
               </label>
             </div>
@@ -91,7 +92,7 @@
                 <input
                  type="checkbox"
                  change.delegate="toggleEndDateIgnore()"
-                 value="${search.filter.ignoreEndDateFilter}">
+                 checked.one-way="search.filter.ignoreEndDateFilter">
                 No end date limit
               </label>
             </div>
@@ -114,42 +115,48 @@
               <span class="input-group-addon"><i class="fa fa-calendar prefix"></i></span>
             </div>
           </div>
-        </form>
         </div>
+      </form>
     </div>
   </div>
   <div class="row" style="margin-top: 30px;">
     <div
       class="col-sm-12 col-sm-offset-0
-             col-md-6 col-md-offset-3
-             col-lg-6 col-lg-offset-3">
+             col-md-8 col-md-offset-2
+             col-lg-8 col-lg-offset-2">
       <div class="center">
-        <form class="form-inline">
-          <div class="input-group">
+        <form>
+          <button
+            style="float: right"
+            style="display: inline;"
+            class="btn btn-primary"
+            disabled="isLoggedIn"
+            click.delegate="createWatchdog()">
+            Create watchdog
+          </button>
+          <button
+            style="float: right"
+            style="display: inline;"
+            class="btn btn-primary"
+            click.delegate="submitFilter()">
+            Search
+          </button>
+
+          <div
+            style="overflow: hidden; padding-right: .5em;"
+            class="input-group">
             <span class="input-group-addon"><i class="fa fa-search prefix"></i></span>
             <input
               id="search"
               type="text"
               class="form-control"
+              style="width: 100%;"
               name="search"
               keyup.delegate="editSearch($event.target.value)"
               value.to-view="search.filter.search"
               placeholder="Search"
               ></input>
           </div>
-
-          <button
-            class="btn btn-primary"
-            click.delegate="submitFilter()">
-            Search
-          </button>
-
-          <button
-            class="btn btn-primary"
-            disabled="isLoggedIn"
-            click.delegate="createWatchdog()">
-            Create watchdog
-          </button>
         </form>
       </div>
     </div>
@@ -167,23 +174,28 @@
         </li>
       </ul>
 
-      <div class="list-group">
+      <div>
         <div
-          class="row"
-          style="height: 300px; margin-botton: 30px;"
+          id="${gig-item + gig.id}"
+          link="route: details; params.bind: {id: gig.id}"
           repeat.for="gig of search.gig.filtered"
-          route-href="route: details; params.bind: {id: gig.id}">
-          <div style="height: 100%;" class="col-sm-3">
+          class="gig-item row">
+          <div
+            style="height: 100%; padding-left: 0; padding-right: 0;"
+            class="col-sm-3">
             <img style="width: 100%;" src="${gig.imageUrl}" />
           </div>
-          <div class="col-sm-6">
+          <div
+            class="col-sm-7">
             <h4>
               ${gig.name}
               <a href.bind="gig.url" style="font-size: 80%;">(${gig.url})</a>
             </h4>
             <h8 innerhtml.bind="gig.description"></h8>
           </div>
-          <div class="col-sm-3" style="margin-top: 70px;">
+          <div
+            class="col-sm-2"
+            style="margin-top: 70px;">
             <time datetime="${getStringDateTime(gig.timetamp)}" class="date-as-calendar inline-flex size2x">
               <span class="weekday">${getDayOfWeek(gig.timetamp)}</span>
               <span class="day">${getDayOfMonth(gig.timetamp)}</span>

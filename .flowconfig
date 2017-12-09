@@ -2,6 +2,8 @@
 .*/node_modules/aurelia-cli/lib/*
 .*/node_modules/npm/*
 .*/node_modules/eslint-plugin-jsx-a11y/src/*
+./server.js
+./lib/*
 
 
 [include]
