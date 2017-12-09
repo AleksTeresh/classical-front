@@ -186,16 +186,21 @@
             <img style="width: 100%;" src="${gig.imageUrl}" />
           </div>
           <div
+            click.trigger="handlePropagation($event)"
             class="col-sm-7">
             <h4>
               ${gig.name}
-              <a href.bind="gig.url" style="font-size: 80%;">(${gig.url})</a>
+              <a
+                href.bind="gig.url"
+                style="font-size: 80%;">
+                (${gig.url})
+              </a>
             </h4>
             <h8 innerhtml.bind="gig.description"></h8>
           </div>
           <div
             class="col-sm-2"
-            style="margin-top: 70px;">
+            style="margin-top: 35px;">
             <time datetime="${getStringDateTime(gig.timetamp)}" class="date-as-calendar inline-flex size2x">
               <span class="weekday">${getDayOfWeek(gig.timetamp)}</span>
               <span class="day">${getDayOfMonth(gig.timetamp)}</span>

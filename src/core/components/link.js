@@ -21,9 +21,9 @@ export class Link {
 
   attached () {
     this.element.addEventListener('click', (ev) => {
-      if (ev.target.id === this.element.id) {
-        this.router.navigateToRoute(this.route, this.params)
-      }
+      // if (ev.target.id === this.element.id) {
+      this.router.navigateToRoute(this.route, this.params)
+      // }
     })
   }
 }

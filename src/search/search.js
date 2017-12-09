@@ -198,12 +198,14 @@ export class Search {
   getStringDateTime (time: number): string {
     return moment(time).format('YYYY-MM-DD')
   }
-/*
-  preventPropagation (event: any) {
-    event.stopPropagation()
-    console.log('propagation is stopped', event)
+
+  handlePropagation (event: any) {
+    if (event.target.tagName === 'A') {
+      event.stopPropagation()
+      window.open(event.target.href, '_blank')
+    }
   }
-*/
+
   resetFilters () {
     dispatch(actionCreators.generalActions.reset())
   }

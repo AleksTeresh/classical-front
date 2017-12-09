@@ -8,12 +8,13 @@ img {
 }
 
 .gig-item {
-  height: 300px;
+  height: 200px;
   margin-bottom: 30px;
   overflow: hidden;
 }
 .gig-item:hover {
   background-color: #d1d1d1;
+  cursor: pointer;
 }
 
 .gig-item .read-more {
