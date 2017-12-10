@@ -8,6 +8,9 @@ import {
     ValidationRules,
     validateTrigger
 } from 'aurelia-validation'
+import { DialogService } from 'aurelia-dialog'
+
+import { ConfirmDialog } from '../core/components/confirmDialog'
 
 import { subscribe, dispatch, getState } from '../core/storeHandler'
 import * as actionCreators from './action-creators'
@@ -15,14 +18,18 @@ import * as actionCreators from './action-creators'
 import type { LoginState } from './types'
 import type { AppState } from '../types'
 
-@inject(ValidationControllerFactory, Validator)
+@inject(ValidationControllerFactory, Validator, DialogService)
 export class Login {
   login: LoginState;
   controller: any;
   canSubmit: boolean;
   validator: any;
 
-  constructor (controllerFactory: any, validator: any) {
+  dialogService: any;
+
+  constructor (controllerFactory: any, validator: any, dialogService: any) {
+    this.dialogService = dialogService
+
     subscribe(this.update.bind(this))
 
     dispatch(actionCreators.loginActions.reset())
@@ -72,6 +79,30 @@ export class Login {
   }
 
   update (state: AppState) {
+    if (this.login && this.login.confirm !== state.login.confirm) {
+      let heading = ''
+      let content = ''
+      if (state.login.confirm === 'success') {
+        heading = 'Success'
+        content = `A new watchdog was successfully created. You can find all
+          of your watchdogs, if you navigate to the "Watchdogs" tab`
+      } else if (state.login.confirm === 'failure') {
+        heading = 'Error'
+        content = `The username or password is incorrect.`
+      }
+
+      if (heading !== '') {
+        this.dialogService.open({
+          viewModel: ConfirmDialog,
+          model: { heading, content },
+          lock: false
+        })
+        .whenClosed(response => {
+          dispatch(actionCreators.loginActions.resetConfirm())
+        })
+      }
+    }
+
     this.login = state.login
   }
 }

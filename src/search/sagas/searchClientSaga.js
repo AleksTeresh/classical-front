@@ -75,7 +75,7 @@ function * createWatchdog (action: CreateWatchdogAction): Generator<any, any, an
     }
   } catch (e) {
     console.error(e)
-    yield put({ type: 'search-watchdog-create-failure' })
+    yield put({ type: 'search-watchdog-create-failure', message: e.message })
   }
 }
 

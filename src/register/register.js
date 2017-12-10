@@ -8,6 +8,9 @@ import {
     ValidationRules,
     validateTrigger
 } from 'aurelia-validation'
+import { DialogService } from 'aurelia-dialog'
+
+import { ConfirmDialog } from '../core/components/confirmDialog'
 
 import { subscribe, dispatch, getState } from '../core/storeHandler'
 import * as actionCreators from './action-creators'
@@ -15,16 +18,18 @@ import * as actionCreators from './action-creators'
 import type { RegisterState } from './types'
 import type { AppState } from '../types'
 
-@inject(ValidationControllerFactory, Validator)
+@inject(ValidationControllerFactory, Validator, DialogService)
 export class Register {
   register: RegisterState;
   controller: any;
   canSubmit: boolean;
   validator: any;
 
-  // password: string;
+  dialogService: any;
 
-  constructor (controllerFactory: any, validator: any) {
+  constructor (controllerFactory: any, validator: any, dialogService: any) {
+    this.dialogService = dialogService
+
     subscribe(this.update.bind(this))
 
     dispatch(actionCreators.inputActions.reset())
@@ -86,6 +91,29 @@ export class Register {
   }
 
   update (state: AppState) {
+    if (
+      this.register &&
+      this.register.confirm.status !== state.register.confirm.status
+    ) {
+      let heading = ''
+      let content = ''
+      if (state.register.confirm.status === 'failure') {
+        heading = 'Error'
+        content = state.register.confirm.message
+      }
+
+      if (heading !== '') {
+        this.dialogService.open({
+          viewModel: ConfirmDialog,
+          model: { heading, content },
+          lock: false
+        })
+        .whenClosed(response => {
+          dispatch(actionCreators.confirmActions.reset())
+        })
+      }
+    }
+
     this.register = state.register
   }
 }

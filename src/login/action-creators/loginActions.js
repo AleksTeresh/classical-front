@@ -36,3 +36,9 @@ export function reset (): Action {
     type: 'login-reset'
   }
 }
+
+export function resetConfirm (): Action {
+  return {
+    type: 'login-confirm-reset'
+  }
+}

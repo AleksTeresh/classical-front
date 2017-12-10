@@ -7,7 +7,7 @@ export type SubmitRegisterAction
 export type RegisterAction
   = SubmitRegisterAction
   | { type: 'register-submit-success' }
-  | { type: 'register-submit-failure' }
+  | { type: 'register-submit-failure', message: string }
 
   // input actions
   | { type: 'register-input-reset' }
@@ -15,3 +15,6 @@ export type RegisterAction
   | { type: 'register-password-edit', password: string }
   | { type: 'register-password-repeat-edit', passwordRepeat: string }
   | { type: 'register-name-edit', name: string }
+
+  // confirm actions
+  | { type: 'register-confirm-reset' }

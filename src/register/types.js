@@ -8,11 +8,12 @@ export type InputState = {
   name: string
 }
 
-export type FeedbackState = {
-  error: boolean
+export type ConfirmState = {
+  status: 'success' | 'failure' | 'none',
+  message: string
 }
 
 export type RegisterState = {
   input: InputState,
-  feedback: FeedbackState
+  confirm: ConfirmState
 }

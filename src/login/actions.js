@@ -13,3 +13,5 @@ export type LoginAction
   | LoginSubmitAction
   | { type: 'login-signin-success' }
   | { type: 'login-signin-failure' }
+
+  | { type: 'login-confirm-reset' }

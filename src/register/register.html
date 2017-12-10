@@ -52,6 +52,7 @@
           <p>Registered already? <a route-href="route: login;">Sign in here!</a></p>
           <button
             type="button"
+            disabled.bind="!canSubmit"
             click.delegate="submit()"
             class="btn btn-primary">
             Sign up

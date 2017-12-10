@@ -9,7 +9,8 @@ function getDefaultState () {
     email: '',
     password: '',
     signedIn: false,
-    error: false
+    error: false,
+    confirm: 'none'
   }
 }
 
@@ -20,6 +21,12 @@ export default function loginReducer (
   switch (action.type) {
     case 'login-reset':
       return getDefaultState()
+
+    case 'login-confirm-reset':
+      return {
+        ...state,
+        confirm: 'none'
+      }
 
     case 'login-email-edit':
       return {
@@ -52,7 +59,8 @@ export default function loginReducer (
       return {
         ...state,
         error: true,
-        password: ''
+        password: '',
+        confirm: 'failure'
       }
 
     default:
