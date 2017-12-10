@@ -186,10 +186,12 @@ export class Search {
       let content = ''
       if (state.search.confirm.watchdog === 'success') {
         heading = 'Success'
-        content = 'A new watchdog was successfully created. You can find all of your watchdogs, if you navigate to the "Watchdogs" tab'
+        content = `A new watchdog was successfully created. You can find all
+          of your watchdogs, if you navigate to the "Watchdogs" tab`
       } else if (state.search.confirm.watchdog === 'failure') {
         heading = 'Error'
-        content = 'An error occurred while trying to create the watchdog!'
+        content = `An error occurred while trying to create the watchdog!
+          ` + state.search.confirm.message
       }
 
       if (heading !== '') {
@@ -198,7 +200,7 @@ export class Search {
           model: { heading, content },
           lock: false
         })
-        .then(response => {
+        .whenClosed(response => {
           dispatch(actionCreators.confirmActions.resetWatchdog())
         })
       }

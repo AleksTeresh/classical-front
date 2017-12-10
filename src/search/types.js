@@ -37,7 +37,8 @@ export type PaginationState = {
 }
 
 export type ConfirmState = {
-  watchdog: 'failure' | 'success' | 'none'
+  watchdog: 'failure' | 'success' | 'none',
+  message: string
 }
 
 export type SearchState = {

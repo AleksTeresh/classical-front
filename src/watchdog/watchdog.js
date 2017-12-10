@@ -69,7 +69,7 @@ export class Register {
           model: { heading, content },
           lock: false
         })
-        .then(response => {
+        .whenClosed(response => {
           dispatch(actionCreators.watchdogActions.resetConfirm())
         })
       }

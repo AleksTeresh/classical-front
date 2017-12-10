@@ -7,7 +7,8 @@ import type { Action } from '../../actions'
 import type { ConfirmState } from '../types'
 
 const initialState: ConfirmState = {
-  watchdog: 'none'
+  watchdog: 'none',
+  message: ''
 }
 
 export default function confirmReducer (
@@ -18,19 +19,22 @@ export default function confirmReducer (
     case 'search-confirm-watchdog-reset':
       return {
         ...state,
-        watchdog: 'none'
+        watchdog: 'none',
+        message: ''
       }
 
     case 'search-watchdog-create-success':
       return {
         ...state,
-        watchdog: 'success'
+        watchdog: 'success',
+        message: ''
       }
 
     case 'search-watchdog-create-failure':
       return {
         ...state,
-        watchdog: 'failure'
+        watchdog: 'failure',
+        message: action.message
       }
 
     default:

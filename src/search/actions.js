@@ -39,7 +39,7 @@ export type SearchAction
 
   | CreateWatchdogAction
   | { type: 'search-watchdog-create-success' }
-  | { type: 'search-watchdog-create-failure' }
+  | { type: 'search-watchdog-create-failure', message: string }
 
   | { type: 'search-reset' }
 

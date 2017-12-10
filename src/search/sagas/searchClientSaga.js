@@ -63,10 +63,15 @@ function * createWatchdog (action: CreateWatchdogAction): Generator<any, any, an
       action.ignoreGenreFilter,
       action.ignoreAuthorFilter
     )
+
     if (result.ok) {
       yield put({ type: 'search-watchdog-create-success' })
     } else {
-      yield put({ type: 'search-watchdog-create-failure' })
+      const jsonResponse = yield result.json()
+      yield put({
+        type: 'search-watchdog-create-failure',
+        message: jsonResponse.message
+      })
     }
   } catch (e) {
     console.error(e)
