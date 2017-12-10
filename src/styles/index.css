@@ -1,3 +1,7 @@
+body {
+  padding-bottom: 50px;
+}
+
 #main {
   margin-top: 70px;
 }
@@ -17,6 +21,10 @@ img {
   background-color: #265a88 !important;
 }
 
+.pagination {
+  cursor: pointer;
+}
+
 .gig-item {
   height: 200px;
   margin-bottom: 30px;
@@ -27,16 +35,34 @@ img {
   cursor: pointer;
 }
 
-.gig-item .read-more {
+.gig-item-text-content {
+  height: 200px;
+}
+
+.suggestion-card {
+  position: relative;
+}
+
+.read-more {
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
   text-align: center;
-  margin: 0; padding: 30px 0;
+  margin: 0; padding: 25px 0;
 
   /* "transparent" only works here because == rgba(0,0,0,0) */
-  background-image: linear-gradient(to bottom, transparent, black);
+  background-image: linear-gradient(to bottom, transparent, white);
+}
+
+.more-link {
+  color: black;
+  font-weight: bold;
+}
+.more-link:hover {
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
 }
 
 @import url(https://fonts.googleapis.com/css?family=Source+Code+Pro|Oswald);
@@ -64,6 +90,8 @@ img {
 
   box-shadow: 2px 2px 2px -2px black;
 }
+
+.date-as-calendar .time,
 .date-as-calendar .weekday,
 .date-as-calendar .day,
 .date-as-calendar .month,
@@ -88,14 +116,17 @@ img {
   justify-content: space-between;
 
   width: 4em;
-  height: 4em;
+  height: 5em;
 }
+
 .inline-flex.date-as-calendar .weekday,
 .inline-flex.date-as-calendar .day,
 .inline-flex.date-as-calendar .month,
-.inline-flex.date-as-calendar .year {
+.inline-flex.date-as-calendar .year,
+.inline-flex.date-as-calendar .time {
   display: block;
   flex: 1 1 auto;
+
 }
 .inline-flex.date-as-calendar .month {
   order: 1;
@@ -113,6 +144,14 @@ img {
 .inline-flex.date-as-calendar .year {
   order: 4;
   font-size: 0.87750em;
+  border-bottom: 1px solid #888;
+  border-radius: 3px;
+  box-shadow: 2px 2px 2px -2px black;
+  overflow: hidden;
+}
+.inline-flex.date-as-calendar .time {
+  order: 5;
+  font-size: 1em;
 }
 
 

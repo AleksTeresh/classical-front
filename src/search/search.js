@@ -28,10 +28,12 @@ export class Search {
   genres: Array<Genre>;
 
   selectedVenueIds: Array<string>
+  hoveredId: number;
 
   dialogService: any;
 
   constructor (dialogService: any) {
+    this.hoveredId = -1
     this.dialogService = dialogService
 
     subscribe(this.update.bind(this))
@@ -64,6 +66,14 @@ export class Search {
       format: 'dd.mm.yyyy'
     })
     .on('changeDate', (e) => this.editEndDate(e.target.value))
+  }
+
+  handleSearchKeyUp (event: any) {
+    if (event.keyCode === 13) {
+      this.submitFilter()
+    }
+
+    this.editSearch(event.target.value)
   }
 
   editSearch (value: string) {
@@ -133,6 +143,8 @@ export class Search {
   }
 
   submitFilter () {
+    this.setGigPage(0)
+
     dispatch(actionCreators.gigActions.load(
       this.search.pagination.gig.page * config.fetchLimit.gig,
       this.search.filter.search,
@@ -231,6 +243,10 @@ export class Search {
     return moment(time).format('MMMM')
   }
 
+  getTime (time: number): string {
+    return moment(time).format('HH:mm')
+  }
+
   getStringDateTime (time: number): string {
     return moment(time).format('YYYY-MM-DD')
   }
@@ -244,5 +260,13 @@ export class Search {
 
   resetFilters () {
     dispatch(actionCreators.generalActions.reset())
+  }
+
+  handleItemHover (gigId: number) {
+    this.hoveredId = gigId
+  }
+
+  handleItemUnhover () {
+    this.hoveredId = -1
   }
 }

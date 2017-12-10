@@ -40,7 +40,10 @@
 
     <!--Grid column-->
     <div class="col-sm-7">
-        <h3>${selectedAuthorName} - ${selectedOpusName}</h3>
+        <h3
+          if.bind="selectedAuthorName || selectedOpusName"
+          innerhtml.bind="selectedAuthorName + ' - ' + selectedOpusName">
+        </h3>
         <a
           href.bind="selectedOpusWikiLink">
           ${selectedOpusWikiLink}
@@ -52,9 +55,9 @@
           src="https://www.youtube.com/embed/${selectedYoutubeId}">
         </iframe>
         <div>
-          <h3>About the composer</h3>
+          <h3 if.bind="selectedAuthorDescription">About the composer</h3>
           <p>${selectedAuthorDescription}</p>
-          <p>
+          <p if.bind="selectedAuthorWikiLink">
             More about the composer:
             <a href.bind="selectedAuthorWikiLink">${selectedAuthorWikiLink}</a>
           </p>

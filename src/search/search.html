@@ -152,7 +152,7 @@
               class="form-control"
               style="width: 100%;"
               name="search"
-              keyup.delegate="editSearch($event.target.value)"
+              keyup.delegate="handleSearchKeyUp($event)"
               value.to-view="search.filter.search"
               placeholder="Search"
               ></input>
@@ -179,6 +179,8 @@
           id="${gig-item + gig.id}"
           link="route: details; params.bind: {id: gig.id}"
           repeat.for="gig of search.gig.filtered"
+          mouseover.delegate="handleItemHover(gig.id)"
+          mouseout.delegate="handleItemUnhover()"
           class="gig-item row">
           <div
             style="height: 100%; padding-left: 0; padding-right: 0;"
@@ -187,25 +189,33 @@
           </div>
           <div
             click.trigger="handlePropagation($event)"
-            class="col-sm-7">
-            <h4>
-              ${gig.name}
-              <a
-                href.bind="gig.url"
-                style="font-size: 80%;">
-                (${gig.url})
-              </a>
-            </h4>
-            <h8 innerhtml.bind="gig.description"></h8>
+            class="col-sm-7 gig-item-text-content">
+            <div>
+              <h4>
+                ${gig.name}
+                <a
+                  href.bind="gig.url"
+                  style="font-size: 80%;">
+                  (${gig.url})
+                </a>
+              </h4>
+              <h8 innerhtml.bind="gig.description"></h8>
+            </div>
+
+            <div
+              if.bind="gig.id !== hoveredId"
+              class="read-more">
+            </div>
           </div>
           <div
             class="col-sm-2"
-            style="margin-top: 35px;">
-            <time datetime="${getStringDateTime(gig.timetamp)}" class="date-as-calendar inline-flex size2x">
-              <span class="weekday">${getDayOfWeek(gig.timetamp)}</span>
-              <span class="day">${getDayOfMonth(gig.timetamp)}</span>
-              <span class="month">${getMonth(gig.timetamp)}</span>
-              <span class="year">${getYear(gig.timetamp)}</span>
+            style="margin-top: 20px;">
+            <time datetime="${getStringDateTime(gig.timestamp)}" class="date-as-calendar inline-flex size2x">
+              <span class="weekday">${getDayOfWeek(gig.timestamp)}</span>
+              <span class="day">${getDayOfMonth(gig.timestamp)}</span>
+              <span class="month">${getMonth(gig.timestamp)}</span>
+              <span class="year">${getYear(gig.timestamp)}</span>
+              <span class="time">${getTime(gig.timestamp)}</span>
             </time>
           </div>
         </div>

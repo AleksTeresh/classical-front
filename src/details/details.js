@@ -76,11 +76,11 @@ export default class Details {
   }
 
   get time (): string {
-    return moment(this.details.gig.timestamp * 1000).format('D MMM YYYY')
+    return moment(this.details.gig.timestamp).format('D MMM YYYY HH:mm')
   }
 
   get duration (): string {
-    return moment.duration(this.details.gig.duration, 'seconds').humanize()
+    return humanize(this.details.gig.duration)
   }
 
   update (state: AppState) {
@@ -89,4 +89,29 @@ export default class Details {
     this.selectedPerformance = this.details.gig.performances
       .filter((p) => p.id === this.details.selection.performanceId)[0]
   }
+}
+
+function humanize (time) {
+  let duration = moment.duration(time, 'milliseconds')
+  let timeString = ''
+
+  if (duration.days() > 0) {
+    timeString += duration.days() > 1
+    ? (duration.days() + ' days ')
+    : (duration.days() + ' day ')
+  }
+
+  if (duration.hours() > 0) {
+    timeString += duration.hours() > 1
+    ? (duration.hours() + ' hours ')
+    : (duration.hours() + ' hour ')
+  }
+
+  if (duration.minutes() > 0) {
+    timeString += duration.minutes() > 1
+    ? (duration.minutes() + ' minutes ')
+    : (duration.minutes() + ' minute ')
+  }
+
+  return timeString
 }

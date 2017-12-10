@@ -5,14 +5,22 @@
          More events featuring the same composers
        </h3>
        <!--Grid column-->
-       <div repeat.for="suggestion of suggestions" class="col-lg-4 col-md-12 mb-4">
-
+       <div
+        repeat.for="suggestion of suggestions"
+        class="col-lg-4 col-md-12 mb-4 ">
+        <div class="suggestion-card">
            <!--Card-->
-           <div class="card">
+           <div
+            class="suggestion-card"
+            style="height: 500px; overflow: hidden;"
+            >
 
                <!--Card image-->
-               <div class="view overlay hm-white-slight">
-                   <img src="${suggestion.imageUrl}" class="img-fluid" alt="${suggestion.name}">
+               <div style="max-height: 250px; overflow: hidden;">
+                   <img
+                      style="width: 100%;"
+                      src="${suggestion.imageUrl}"
+                      alt="${suggestion.name}">
                    <a href="#">
                        <div class="mask"></div>
                    </a>
@@ -24,16 +32,23 @@
                    <h4 class="card-title">${suggestion.name}</h4>
                    <!--Text-->
                    <p class="card-text" innerhtml.bind="suggestion.description"></p>
-                   <button
-                     click.delegate="navigateToGig(suggestion.id)"
-                     class="btn btn-primary">
-                     More
-                   </button>
+
                </div>
 
            </div>
            <!--/.Card-->
+           <div
+             class="read-more">
+           </div>
 
+         </div>
+         <button
+           click.delegate="navigateToGig(suggestion.id)"
+           style="width: 30%; position: absolute; right: 70px;"
+           class="btn btn-primary"
+           >
+           More
+         </button>
        </div>
        <!--Grid column-->
 
