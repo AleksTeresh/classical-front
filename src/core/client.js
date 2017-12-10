@@ -5,6 +5,8 @@ import 'whatwg-fetch'
 import { HttpClient, json } from 'aurelia-fetch-client'
 import Promise from 'bluebird'
 
+import { checkToken } from './lib/token-utils'
+
 // import { GigUtils } from './type-methods'
 
 import type {
@@ -23,6 +25,17 @@ function getToken () {
   return window.localStorage.getItem('token')
 }
 
+function getDefaultOptions () {
+  let options = {}
+  if (checkToken()) {
+    options.headers = {
+      Authorization: 'Bearer ' + getToken()
+    }
+  }
+
+  return options
+}
+
 export function fetchGigs (
   keyPhrase?: string = '',
   limit?: number = 10,
@@ -33,6 +46,8 @@ export function fetchGigs (
   startDate?: string,
   endDate?: string
 ): Promise<GigResponse> {
+  let options = getDefaultOptions()
+
   return httpClient.fetch(
       '/api/gig?keyPhrase=' + encodeURIComponent(keyPhrase) +
       '&limit=' + limit +
@@ -42,11 +57,7 @@ export function fetchGigs (
       (venueIds /*  && venueIds.length > 0 */ ? ('&venues=' + venueIds.toString() + '') : '') +
       (startDate ? ('&startDate=' + startDate) : '') +
       (endDate ? ('&endDate=' + endDate) : ''),
-    {
-      headers: {
-        Authorization: 'Bearer ' + getToken()
-      }
-    }
+    options
     )
     .then(response => {
       return response.json()
@@ -54,61 +65,51 @@ export function fetchGigs (
 }
 
 export function fetchGig (id: number): Promise<Gig> {
+  let options = getDefaultOptions()
+
   return httpClient.fetch(
     '/api/gig/' + id,
-    {
-      headers: {
-        Authorization: 'Bearer ' + getToken()
-      }
-    }
+    options
   )
     .then(response => response.json())
 }
 
 export function fetchVenues (): Promise<Array<Venue>> {
+  let options = getDefaultOptions()
+
   return httpClient.fetch(
     '/api/venue',
-    {
-      headers: {
-        Authorization: 'Bearer ' + getToken()
-      }
-    }
+    options
   )
     .then(response => response.json())
 }
 
 export function fetchVenue (id: number): Promise<Venue> {
+  let options = getDefaultOptions()
+
   return httpClient.fetch(
     '/api/venue/' + id,
-    {
-      headers: {
-        Authorization: 'Bearer ' + getToken()
-      }
-    }
+    options
   )
     .then(response => response.json())
 }
 
 export function fetchGenres (): Promise<Array<Genre>> {
+  let options = getDefaultOptions()
+
   return httpClient.fetch(
     '/api/genre',
-    {
-      headers: {
-        Authorization: 'Bearer ' + getToken()
-      }
-    }
+    options
   )
     .then(response => response.json())
 }
 
 export function fetchGenre (id: number): Promise<Genre> {
+  let options = getDefaultOptions()
+
   return httpClient.fetch(
     '/api/genre/' + id,
-    {
-      headers: {
-        Authorization: 'Bearer ' + getToken()
-      }
-    }
+    options
   )
     .then(response => response.json())
 }
@@ -118,28 +119,24 @@ export function fetchAuthors (
   limit?: number = 10,
   offset?: number = 0
 ): Promise<AuthorResponse> {
+  let options = getDefaultOptions()
+
   return httpClient.fetch(
     '/api/author?keyPhrase=' + encodeURIComponent(keyPhrase) +
     '&limit=' + limit +
     '&offset=' + offset,
-    {
-      headers: {
-        Authorization: 'Bearer ' + getToken()
-      }
-    }
+    options
   )
     .then(response => response.json())
 }
 
 export function fetchAuthor (id: number): Promise<Author> {
+  let options = getDefaultOptions()
+  options.method = 'GET'
+
   return httpClient.fetch(
     '/api/author/' + id,
-    {
-      method: 'GET',
-      headers: {
-        Authorization: 'Bearer ' + getToken()
-      }
-    }
+    options
   )
     .then(response => response.json())
 }
@@ -148,15 +145,16 @@ export function login (
   email: string,
   password: string
 ): Promise<boolean> {
+  let options = getDefaultOptions()
+  options.method = 'post'
+  options.body = json({
+    email,
+    password
+  })
+
   return httpClient.fetch(
     '/api/auth',
-    {
-      method: 'post',
-      body: json({
-        email,
-        password
-      })
-    }
+    options
   )
     .then(p => p.json())
     // .then(r => handleAuthResponse(r.json()))
@@ -167,18 +165,18 @@ export function register (
   password: string,
   name: string
 ): Promise<boolean> {
+  let options = getDefaultOptions()
+  options.method = 'post'
+  options.body = json({
+    email,
+    password,
+    name
+  })
+
   return httpClient.fetch(
     '/api/register',
-    {
-      method: 'post',
-      body: json({
-        email,
-        password,
-        name
-      })
-    }
+    options
   )
-
     // .then(r => handleAuthResponse(r))
 }
 
@@ -192,49 +190,43 @@ export function createWatchdog (
   allGenres?: boolean = false,
   allAuthors?: boolean = false
 ): Promise<any> {
+  let options = getDefaultOptions()
+  options.method = 'post'
+  options.body = json({
+    keyPhrase,
+    startDate,
+    endDate,
+    authorIds,
+    genreIds,
+    venueIds,
+    allGenres,
+    allAuthors
+  })
+
   return httpClient.fetch(
     '/api/watchdog',
-    {
-      method: 'post',
-      body: json({
-        keyPhrase,
-        startDate,
-        endDate,
-        authorIds,
-        genreIds,
-        venueIds,
-        allGenres,
-        allAuthors
-      }),
-      headers: {
-        Authorization: 'Bearer ' + getToken()
-      }
-    }
+    options
   )
 }
 
 export function fetchWatchdogs (): Promise<Array<Watchdog>> {
+  let options = getDefaultOptions()
+  options.method = 'GET'
+
   return httpClient.fetch(
     '/api/watchdog',
-    {
-      method: 'GET',
-      headers: {
-        Authorization: 'Bearer ' + getToken()
-      }
-    }
+    options
   )
     .then(p => p.json())
 }
 
 export function removeWatchdog (id: number): Promise<any> {
+  let options = getDefaultOptions()
+  options.method = 'DELETE'
+
   return httpClient.fetch(
     '/api/watchdog/' + id,
-    {
-      method: 'DELETE',
-      headers: {
-        Authorization: 'Bearer ' + getToken()
-      }
-    }
+    options
   )
 }
 /*

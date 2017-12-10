@@ -7,16 +7,17 @@ import 'bootstrap-datepicker'
 import { coreActionCreators } from './core/action-creators'
 import { dispatch } from './core/storeHandler'
 
+import { checkToken, removeToken } from './core/lib/token-utils'
+import * as client from './core/client'
+
 export class App {
   router: any;
 
-  constructor () {
-    dispatch(coreActionCreators.loadVenues())
-    dispatch(coreActionCreators.loadAuthors())
-    dispatch(coreActionCreators.loadGenres())
-  }
-
   async configureRouter (config: any, router: any) {
+    await checkUserIsValid()
+
+    loadCoreEntities()
+
     await waitForCoreEntitiesToLoad()
 
     config.title = 'Classical'
@@ -32,7 +33,7 @@ export class App {
   }
 
   get isLoggedIn (): boolean {
-    return window.localStorage.getItem('token')
+    return checkToken()
   }
 
   navigateToLoginPage () {
@@ -45,7 +46,7 @@ export class App {
   }
 
   signout () {
-    window.localStorage.removeItem('token')
+    removeToken()
   }
 }
 
@@ -57,6 +58,23 @@ function waitForCoreEntitiesToLoad () {
       if (coreEntitiesReady) resolve()
     },
     200))
+}
+
+function loadCoreEntities () {
+  dispatch(coreActionCreators.loadVenues())
+  dispatch(coreActionCreators.loadAuthors())
+  dispatch(coreActionCreators.loadGenres())
+}
+
+async function checkUserIsValid () {
+  try {
+    let result = await client.fetchGigs('', 1)
+    if (result.status >= 400) {
+      removeToken()
+    }
+  } catch (e) {
+    removeToken()
+  }
 }
 
 export function continueBootstrapping () {

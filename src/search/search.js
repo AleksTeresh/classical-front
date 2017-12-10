@@ -12,6 +12,8 @@ import * as actionCreators from './action-creators'
 
 import { ConfirmDialog } from '../core/components/confirmDialog'
 
+import { checkToken } from '../core/lib/token-utils'
+
 import config from '../config'
 
 import type { SearchState } from './types'
@@ -127,9 +129,7 @@ export class Search {
   }
 
   get isLoggedIn (): boolean {
-    const token = window.localStorage.getItem('token')
-    return token !== undefined && token !== null &&
-      token !== '' && token !== 'undefined'
+    return checkToken()
   }
 
   submitFilter () {
