@@ -59,7 +59,9 @@ function * createWatchdog (action: CreateWatchdogAction): Generator<any, any, an
       : moment(action.startDate, 'DD.MM.YYYY').format('YYYY-MM-DD'),
       action.ignoreEndDateFilter
       ? undefined
-      : moment(action.endDate, 'DD.MM.YYYY').format('YYYY-MM-DD')
+      : moment(action.endDate, 'DD.MM.YYYY').format('YYYY-MM-DD'),
+      action.ignoreGenreFilter,
+      action.ignoreAuthorFilter
     )
     if (result.ok) {
       yield put({ type: 'search-watchdog-create-success' })

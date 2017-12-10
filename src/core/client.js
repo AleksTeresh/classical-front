@@ -188,7 +188,9 @@ export function createWatchdog (
   genreIds?: Array<number>,
   venueIds?: Array<number>,
   startDate?: string,
-  endDate?: string
+  endDate?: string,
+  allGenres?: boolean = false,
+  allAuthors?: boolean = false
 ): Promise<any> {
   return httpClient.fetch(
     '/api/watchdog',
@@ -200,7 +202,9 @@ export function createWatchdog (
         endDate,
         authorIds,
         genreIds,
-        venueIds
+        venueIds,
+        allGenres,
+        allAuthors
       }),
       headers: {
         Authorization: 'Bearer ' + getToken()

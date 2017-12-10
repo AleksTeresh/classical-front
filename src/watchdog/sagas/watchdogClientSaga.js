@@ -32,7 +32,9 @@ function * fetchWatchdogs (action: FetchWatchdogsAction): Generator<any, any, an
       : p.endDate,
       authors: p.authorIds.map((p) => authors.filter((s) => s.id === p)[0].name),
       genres: p.genreIds.map((p) => genres.filter((s) => s.id === p)[0].name),
-      venues: p.venueIds.map((p) => venues.filter((s) => s.id === p)[0].name)
+      venues: p.venueIds.map((p) => venues.filter((s) => s.id === p)[0].name),
+      allGenres: p.allGenres,
+      allAuthors: p.allAuthors
     }))
     yield put({ type: 'watchdog-fetch-success', watchdogs: watchdogRepresentations })
   } catch (e) {

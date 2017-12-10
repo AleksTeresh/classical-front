@@ -4,8 +4,14 @@
     <p if.bind="watchdog.keyPhrase">Key phrase - ${watchdog.keyPhrase}</p>
     <p if.bind="watchdog.startDate">Start date - ${watchdog.startDate}</p>
     <p if.bind="watchdog.endDate">End date - ${watchdog.endDate}</p>
-    <p if.bind="watchdog.authors.length">Authors - ${watchdog.authors}</p>
-    <p if.bind="watchdog.genres.length">Genres - ${watchdog.genres}</p>
+    <p if.bind="watchdog.authors.length && !watchdog.allAuthors">
+      Authors - ${watchdog.authors}
+    </p>
+    <p if.bind="watchdog.allAuthors">All authors</p>
+    <p if.bind="watchdog.genres.length && !watchdog.allGenres">
+      Genres - ${watchdog.genres}
+    </p>
+    <p if.bind="watchdog.allGenres">All genres</p>
     <p if.bind="watchdog.venues.length">Venues - ${watchdog.venues}</p>
     <button class="btn btn-danger" click.delegate="removeWatchdog(watchdog.id)">
       Remove watchdog

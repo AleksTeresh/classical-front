@@ -76,7 +76,9 @@ export type Watchdog = {
   genreIds: Array<number>,
   venueIds: Array<number>,
   startDate: string,
-  endDate: string
+  endDate: string,
+  allGenres: boolean,
+  allAuthors: boolean
 }
 
 export type CoreState = {
