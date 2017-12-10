@@ -4,8 +4,13 @@
 import $ from 'jquery'
 import moment from 'moment'
 
+import { inject } from 'aurelia-framework'
+import { DialogService } from 'aurelia-dialog'
+
 import { subscribe, dispatch, getState } from '../core/storeHandler'
 import * as actionCreators from './action-creators'
+
+import { ConfirmDialog } from '../core/components/confirmDialog'
 
 import config from '../config'
 
@@ -13,6 +18,7 @@ import type { SearchState } from './types'
 import type { AppState } from '../types'
 import type { Author, Venue, Genre } from '../core/types'
 
+@inject(DialogService)
 export class Search {
   search: SearchState;
   authors: Array<Author>;
@@ -21,7 +27,11 @@ export class Search {
 
   selectedVenueIds: Array<string>
 
-  constructor () {
+  dialogService: any;
+
+  constructor (dialogService: any) {
+    this.dialogService = dialogService
+
     subscribe(this.update.bind(this))
 
     // dispatch(actionCreators.generalActions.start())
@@ -171,6 +181,29 @@ export class Search {
   }
 
   update (state: AppState) {
+    if (this.search.confirm.watchdog !== state.search.confirm.watchdog) {
+      let heading = ''
+      let content = ''
+      if (state.search.confirm.watchdog === 'success') {
+        heading = 'Success'
+        content = 'A new watchdog was successfully created. You can find all of your watchdogs, if you navigate to the "Watchdogs" tab'
+      } else if (state.search.confirm.watchdog === 'failure') {
+        heading = 'Error'
+        content = 'An error occurred while trying to create the watchdog!'
+      }
+
+      if (heading !== '') {
+        this.dialogService.open({
+          viewModel: ConfirmDialog,
+          model: { heading, content },
+          lock: false
+        })
+        .then(response => {
+          dispatch(actionCreators.confirmActions.resetWatchdog())
+        })
+      }
+    }
+
     this.search = state.search
     this.authors = state.core.authors.authors
     this.genres = state.core.genres

@@ -55,8 +55,11 @@ export type SearchAction
   | { type: 'search-filter-start-date-ignore-toggle' }
   | { type: 'search-filter-end-date-ignore-toggle' }
 
-  // Paginationactions
+  // Pagination actions
   | { type: 'search-pagination-gig-count-set', count: number }
   | { type: 'search-pagination-gig-page-set', page: number }
   | { type: 'search-pagination-author-count-set', count: number }
   | { type: 'search-pagination-author-page-set', page: number }
+
+  // confirm actions
+  | { type: 'search-confirm-watchdog-reset' }

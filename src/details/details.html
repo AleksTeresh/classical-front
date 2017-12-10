@@ -46,9 +46,10 @@
           ${selectedOpusWikiLink}
         </a>
         <iframe
+          if.bind="selectedYoutubeId"
           style="margin-top: 20px;"
           width="560" height="315"
-          src="https://www.youtube.com/embed/${selectedId}">
+          src="https://www.youtube.com/embed/${selectedYoutubeId}">
         </iframe>
         <div>
           <h3>About the composer</h3>

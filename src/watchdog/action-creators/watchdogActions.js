@@ -15,3 +15,9 @@ export function remove (id: number): Action {
     id: id
   }
 }
+
+export function resetConfirm (): Action {
+  return {
+    type: 'watchdog-confirm-reset'
+  }
+}

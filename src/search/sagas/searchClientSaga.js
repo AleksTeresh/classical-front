@@ -44,7 +44,7 @@ function * fetchGigs (action: GigLoadAction): Generator<any, any, any> {
 
 function * createWatchdog (action: CreateWatchdogAction): Generator<any, any, any> {
   try {
-    yield call(
+    const result = yield call(
       client.createWatchdog,
       action.keyPhrase,
       action.ignoreAuthorFilter
@@ -61,7 +61,11 @@ function * createWatchdog (action: CreateWatchdogAction): Generator<any, any, an
       ? undefined
       : moment(action.endDate, 'DD.MM.YYYY').format('YYYY-MM-DD')
     )
-    yield put({ type: 'search-watchdog-create-success' })
+    if (result.ok) {
+      yield put({ type: 'search-watchdog-create-success' })
+    } else {
+      yield put({ type: 'search-watchdog-create-failure' })
+    }
   } catch (e) {
     console.error(e)
     yield put({ type: 'search-watchdog-create-failure' })

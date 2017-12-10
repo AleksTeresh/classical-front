@@ -8,7 +8,7 @@ import core from '../core/reducers'
 import details from '../details/reducers'
 import register from '../register/reducers'
 import login from '../login/reducers'
-import watchdog from '../watchdog/reducers'
+import watchdogView from '../watchdog/reducers'
 
 export default combineReducers({
   search,
@@ -16,5 +16,5 @@ export default combineReducers({
   details,
   register,
   login,
-  watchdog
+  watchdogView
 })

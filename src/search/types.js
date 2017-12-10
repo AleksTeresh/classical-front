@@ -36,8 +36,13 @@ export type PaginationState = {
   author: PaginationEntity
 }
 
+export type ConfirmState = {
+  watchdog: 'failure' | 'success' | 'none'
+}
+
 export type SearchState = {
   gig: GigState,
   filter: FilterState,
-  pagination: PaginationState
+  pagination: PaginationState,
+  confirm: ConfirmState
 }

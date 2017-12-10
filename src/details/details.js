@@ -27,7 +27,7 @@ export default class Details {
     dispatch(actionCreators.gigActions.load(params.id))
   }
 
-  get selectedId (): string {
+  get selectedYoutubeId (): string {
     if (!this.selectedPerformance || !this.selectedPerformance.youtubeId) {
       return ''
     }

@@ -3,6 +3,8 @@
 
 export type WatchdogRepr = {
   keyPhrase: string,
+  allGenres: boolean,
+  allAuthors: boolean,
   authors: Array<string>,
   genres: Array<string>,
   venues: Array<string>,
@@ -12,4 +14,13 @@ export type WatchdogRepr = {
 
 export type WatchdogState = {
   all: Array<WatchdogRepr>
+}
+
+export type ConfirmState = {
+  watchdog: 'failure' | 'success' | 'none'
+}
+
+export type WatchdogViewState = {
+  watchdog: WatchdogState,
+  confirm: ConfirmState
 }

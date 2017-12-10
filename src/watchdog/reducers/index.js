@@ -1,6 +1,12 @@
 /* @flow */
 'use strict'
 
-import watchdog from './watchdogReducer'
+import { combineReducers } from 'redux'
 
-export default watchdog
+import watchdog from './watchdogReducer'
+import confirm from './confirmReducer'
+
+export default combineReducers({
+  watchdog,
+  confirm
+})

@@ -1,26 +1,36 @@
 /* @flow */
 'use strict'
 
+import { inject } from 'aurelia-framework'
+import { DialogService } from 'aurelia-dialog'
+
 import { subscribe, dispatch, getState } from '../core/storeHandler'
 import * as actionCreators from './action-creators'
 
-import type { WatchdogState } from './types'
+import { ConfirmDialog } from '../core/components/confirmDialog'
+
+import type { WatchdogViewState } from './types'
 import type { Author, Venue, Genre } from '../core/types'
 import type { AppState } from '../types'
 
+@inject(DialogService)
 export class Register {
-  watchdog: WatchdogState;
+  watchdogView: WatchdogViewState;
 
   authors: Array<Author>;
   venues: Array<Venue>;
   genres: Array<Genre>;
 
-  constructor () {
+  dialogService: any;
+
+  constructor (dialogService: any) {
+    this.dialogService = dialogService
+
     subscribe(this.update.bind(this))
 
-    dispatch(actionCreators.watchdogActions.fetch())
+    this.watchdogView = getState().watchdogView
 
-    this.watchdog = getState().watchdog
+    dispatch(actionCreators.watchdogActions.fetch())
   }
 
   removeWatchdog (id: number) {
@@ -40,7 +50,32 @@ export class Register {
   }
 
   update (state: AppState) {
-    this.watchdog = state.watchdog
+    console.log(this.watchdogView, state.watchdogView)
+    if (this.watchdogView.confirm.watchdog !==
+        state.watchdogView.confirm.watchdog) {
+      let heading = ''
+      let content = ''
+      if (state.watchdogView.confirm.watchdog === 'success') {
+        heading = 'Success'
+        content = 'The watchdog has been successfully deleted.'
+      } else if (state.watchdogView.confirm.watchdog === 'failure') {
+        heading = 'Error'
+        content = 'An error occurred while trying to delete the watchdog!'
+      }
+
+      if (heading !== '') {
+        this.dialogService.open({
+          viewModel: ConfirmDialog,
+          model: { heading, content },
+          lock: false
+        })
+        .then(response => {
+          dispatch(actionCreators.watchdogActions.resetConfirm())
+        })
+      }
+    }
+
+    this.watchdogView = state.watchdogView
 
     this.authors = state.core.authors.authors
     this.genres = state.core.genres

@@ -6,7 +6,7 @@ import type { CoreState } from './core/types'
 import type { DetailsState } from './details/types'
 import type { RegisterState } from './register/types'
 import type { LoginState } from './login/types'
-import type { WatchdogState } from './watchdog/types'
+import type { WatchdogViewState } from './watchdog/types'
 
 export type AppState = {
   search: SearchState,
@@ -14,5 +14,5 @@ export type AppState = {
   details: DetailsState,
   register: RegisterState,
   login: LoginState,
-  watchdog: WatchdogState
+  watchdogView: WatchdogViewState
 }

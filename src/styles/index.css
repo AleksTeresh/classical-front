@@ -7,6 +7,16 @@ img {
   max-height: 100%;
 }
 
+.btn-primary:hover {
+  color: #fff !important;
+  background-color: #286090 !important;
+  border-color: #204d74 !important;
+}
+
+.btn-primary:focus, .btn-primary:hover {
+  background-color: #265a88 !important;
+}
+
 .gig-item {
   height: 200px;
   margin-bottom: 30px;

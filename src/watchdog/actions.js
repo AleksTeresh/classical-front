@@ -14,3 +14,5 @@ export type WatchdogAction
   | RemoveWatchdogAction
   | { type: 'watchdog-remove-success' }
   | { type: 'watchdog-remove-failure' }
+
+  | { type: 'watchdog-confirm-reset' }

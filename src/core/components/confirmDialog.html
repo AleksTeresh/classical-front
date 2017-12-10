@@ -1,0 +1,18 @@
+<template>
+  <ux-dialog>
+    <ux-dialog-header>
+      <label style="font-size: 115%;">${heading}</label>
+    </ux-dialog-header>
+    <ux-dialog-body>
+      <p>${content}</p>
+    </ux-dialog-body>
+    <ux-dialog-footer style="height: 50px;">
+      <button
+        style="float: right;"
+        class="btn btn-primary"
+        click.delegate="controller.ok(rating)">
+        Ok
+      </button>
+    </ux-dialog-footer>
+  </ux-dialog>
+</template>
