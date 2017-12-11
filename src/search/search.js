@@ -31,12 +31,13 @@ export class Search {
   hoveredId: number;
 
   dialogService: any;
+  unsubscribe: () => void;
 
   constructor (dialogService: any) {
     this.hoveredId = -1
     this.dialogService = dialogService
 
-    subscribe(this.update.bind(this))
+    this.unsubscribe = subscribe(this.update.bind(this))
 
     // dispatch(actionCreators.generalActions.start())
 
@@ -66,6 +67,10 @@ export class Search {
       format: 'dd.mm.yyyy'
     })
     .on('changeDate', (e) => this.editEndDate(e.target.value))
+  }
+
+  detached () {
+    this.unsubscribe()
   }
 
   handleSearchKeyUp (event: any) {

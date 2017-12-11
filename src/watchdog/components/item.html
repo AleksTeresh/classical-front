@@ -1,20 +1,23 @@
 <template bindable="watchdog">
   <a
     class="list-group-item">
-    <p if.bind="watchdog.keyPhrase">Key phrase - ${watchdog.keyPhrase}</p>
-    <p if.bind="watchdog.startDate">Start date - ${watchdog.startDate}</p>
-    <p if.bind="watchdog.endDate">End date - ${watchdog.endDate}</p>
+    <p if.bind="watchdog.keyPhrase"><b>Search phrase</b> - ${watchdog.keyPhrase}</p>
+    <p if.bind="watchdog.startDate"><b>Start date</b> - ${watchdog.startDate}</p>
+    <p if.bind="watchdog.endDate"><b>End date</b> - ${watchdog.endDate}</p>
     <p if.bind="watchdog.authors.length && !watchdog.allAuthors">
-      Authors - ${watchdog.authors}
+      <b>Authors</b> -
+      <span innerhtml.bind="watchdog.authors.join(', ')"></span>
     </p>
-    <p if.bind="watchdog.allAuthors">All authors</p>
+    <p if.bind="watchdog.allAuthors"><b>All authors</b></p>
     <p if.bind="watchdog.genres.length && !watchdog.allGenres">
-      Genres - ${watchdog.genres}
+      <b>Genres</b> - ${watchdog.genres.join(', ')}
     </p>
-    <p if.bind="watchdog.allGenres">All genres</p>
-    <p if.bind="watchdog.venues.length">Venues - ${watchdog.venues}</p>
+    <p if.bind="watchdog.allGenres"><b>All genres</b></p>
+    <p if.bind="watchdog.venues.length">
+      <b>Venues</b> - ${watchdog.venues.join(', ')}
+    </p>
     <button class="btn btn-danger" click.delegate="removeWatchdog(watchdog.id)">
-      Remove watchdog
+      <b>Remove watchdog</b>
     </button>
   </a>
 </template>

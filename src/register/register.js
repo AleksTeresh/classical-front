@@ -26,11 +26,12 @@ export class Register {
   validator: any;
 
   dialogService: any;
+  unsubscribe: () => void;
 
   constructor (controllerFactory: any, validator: any, dialogService: any) {
     this.dialogService = dialogService
 
-    subscribe(this.update.bind(this))
+    this.unsubscribe = subscribe(this.update.bind(this))
 
     dispatch(actionCreators.inputActions.reset())
 
@@ -46,6 +47,10 @@ export class Register {
 
   activate () {
     this.setupValidation()
+  }
+
+  detached () {
+    this.unsubscribe()
   }
 
   validateWhole () {

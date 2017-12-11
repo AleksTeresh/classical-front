@@ -16,15 +16,22 @@ export default class Details {
 
   selectedPerformance: Performance;
 
+  unsubscribe: () => void;
+
   constructor () {
-    subscribe(this.update.bind(this))
+    this.unsubscribe = subscribe(this.update.bind(this))
 
     this.update(getState())
   }
+
   activate (params: any, routeConfig: any) {
     this.routeConfig = routeConfig
 
     dispatch(actionCreators.gigActions.load(params.id))
+  }
+
+  detached () {
+    this.unsubscribe()
   }
 
   get selectedYoutubeId (): string {

@@ -24,17 +24,23 @@ function * fetchWatchdogs (action: FetchWatchdogsAction): Generator<any, any, an
 
     const watchdogRepresentations = watchdogs.map((p) => ({
       id: p.id,
+      keyPhrase: p.keyPhrase,
       startDate: p.startDate
       ? p.startDate.substring(0, p.startDate.length - 9)
       : p.startDate,
       endDate: p.endDate
       ? p.endDate.substring(0, p.endDate.length - 9)
       : p.endDate,
-      authors: p.authorIds.map((p) => authors.filter((s) => s.id === p)[0].name),
+      authors: p.authorIds.map((p) => {
+        const matchedAuthor = authors.filter((s) => s.id === p)[0]
+        return '<a href="' + matchedAuthor.wikipediaLink + '">' +
+          matchedAuthor.name +
+          '</a>'
+      }),
       genres: p.genreIds.map((p) => genres.filter((s) => s.id === p)[0].name),
       venues: p.venueIds.map((p) => venues.filter((s) => s.id === p)[0].name),
-      allGenres: p.allGenres,
-      allAuthors: p.allAuthors
+      allGenres: p.allGenres || p.genreIds.length >= genres.length,
+      allAuthors: p.allAuthors || p.authorIds.length >= authors.length
     }))
     yield put({ type: 'watchdog-fetch-success', watchdogs: watchdogRepresentations })
   } catch (e) {

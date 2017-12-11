@@ -22,15 +22,20 @@ export class Register {
   genres: Array<Genre>;
 
   dialogService: any;
+  unsubscribe: () => void;
 
   constructor (dialogService: any) {
     this.dialogService = dialogService
 
-    subscribe(this.update.bind(this))
+    this.unsubscribe = subscribe(this.update.bind(this))
 
     this.watchdogView = getState().watchdogView
 
     dispatch(actionCreators.watchdogActions.fetch())
+  }
+
+  detached () {
+    this.unsubscribe()
   }
 
   removeWatchdog (id: number) {
@@ -50,7 +55,6 @@ export class Register {
   }
 
   update (state: AppState) {
-    console.log(this.watchdogView, state.watchdogView)
     if (this.watchdogView.confirm.watchdog !==
         state.watchdogView.confirm.watchdog) {
       let heading = ''
