@@ -40,7 +40,7 @@
                size="13">
               <option
                repeat.for="genre of genres"
-               value="${genre.id}"
+               value.bind="genre.id"
                selected="search.filter.genres.includes(genre.id)">
                 ${genre.name}
               </option>

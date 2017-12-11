@@ -5,12 +5,12 @@
   <!--Grid row-->
   <div class="row">
       <!--Grid column-->
-      <div class="col-sm-6">
+      <div style="height: 300px;" class="col-sm-6">
           <!--Featured image -->
           <img
+            style="height: 100%;"
             src=${details.gig.imageUrl}
-            alt=${details.gig.name}
-            class="img-fluid ">
+            alt=${details.gig.name}>
           <div class="mask"></div>
       </div>
       <!--Grid column-->
@@ -28,7 +28,13 @@
   <!--Grid row-->
 
   <!--Grid row-->
-  <div class="row" style="margin-top: 35px;">
+  <div
+    class="row"
+    if.bind="details.gig.performances && details.gig.performances.length > 0"
+    style="padding-top: 5px; margin-top: 20px; border-top: 1px solid #c6c6c6;">
+    <h3 style="margin-left: 15px; margin-bottom: 15px;">
+      Programme
+    </h3>
     <!--Grid column-->
     <div class="col-sm-5">
       <performance-select
@@ -68,7 +74,11 @@
 <!--Grid row-->
 
    <!--Grid row-->
-   <div class="row" style="margin-top: 35px;">
+   <div
+     class="row"
+     if.bind="details.suggestions && details.suggestions.length > 0"
+     style="margin-top: 35px; border-top: 1px solid #c6c6c6">
+     <h3>You might also like</h3>
      <suggestion-panel suggestions.bind="details.suggestions">
      </suggestion-panel>
    </div>

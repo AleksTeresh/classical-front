@@ -7,6 +7,9 @@ import moment from 'moment'
 import { call, put, takeEvery } from 'redux-saga/effects'
 
 import * as client from '../../core/client'
+import { ImageUtils } from '../../core/lib'
+
+import defaultImage from '../../../static/classical.jpg'
 
 import config from '../../config'
 
@@ -34,7 +37,19 @@ function * fetchGigs (action: GigLoadAction): Generator<any, any, any> {
       ? undefined
       : moment(action.endDate, 'DD.MM.YYYY').format('YYYY-MM-DD')
     )
-    yield put({ type: 'search-gigs-load-success', gigs: gigResponse.gigs })
+
+    let gigs = gigResponse.gigs.map((p) => {
+      if (!ImageUtils.isImageUrlValid(p.imageUrl)) {
+        return {
+          ...p,
+          imageUrl: defaultImage
+        }
+      }
+
+      return p
+    })
+
+    yield put({ type: 'search-gigs-load-success', gigs: gigs })
     yield put({ type: 'search-pagination-gig-count-set', count: gigResponse.count })
   } catch (e) {
     console.error(e)

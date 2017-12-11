@@ -5,7 +5,7 @@ import 'whatwg-fetch'
 import { HttpClient, json } from 'aurelia-fetch-client'
 import Promise from 'bluebird'
 
-import { checkToken } from './lib/token-utils'
+import { TokenUtils } from './lib'
 
 // import { GigUtils } from './type-methods'
 
@@ -27,7 +27,7 @@ function getToken () {
 
 function getDefaultOptions () {
   let options = {}
-  if (checkToken()) {
+  if (TokenUtils.checkToken()) {
     options.headers = {
       Authorization: 'Bearer ' + getToken()
     }

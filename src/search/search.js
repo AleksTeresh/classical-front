@@ -12,7 +12,7 @@ import * as actionCreators from './action-creators'
 
 import { ConfirmDialog } from '../core/components/confirmDialog'
 
-import { checkToken } from '../core/lib/token-utils'
+import { TokenUtils } from '../core/lib'
 
 import config from '../config'
 
@@ -82,7 +82,10 @@ export class Search {
 
   toggleAuthor (options: Array<any>) {
     for (let i = 0; i < options.length; i++) {
-      if (options[i].selected !== this.search.filter.authors.includes(Number(options[i].value))) {
+      if (
+        options[i].selected !==
+        this.search.filter.authors.includes(Number(options[i].value))
+      ) {
         dispatch(actionCreators.filterActions.toggleAuthor(Number(options[i].value)))
       }
     }
@@ -92,8 +95,15 @@ export class Search {
     dispatch(actionCreators.filterActions.toggleVenue(Number(authorId)))
   }
 
-  toggleGenre (authorId: number) {
-    dispatch(actionCreators.filterActions.toggleGenre(authorId))
+  toggleGenre (options: Array<any>) {
+    for (let i = 0; i < options.length; i++) {
+      if (
+        options[i].selected !==
+        this.search.filter.genres.includes(Number(options[i].value))
+      ) {
+        dispatch(actionCreators.filterActions.toggleGenre(Number(options[i].value)))
+      }
+    }
   }
 
   editStartDate (value: string) {
@@ -139,7 +149,7 @@ export class Search {
   }
 
   get isLoggedIn (): boolean {
-    return checkToken()
+    return TokenUtils.checkToken()
   }
 
   submitFilter () {

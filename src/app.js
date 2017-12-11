@@ -1,4 +1,5 @@
 /* @flow */
+/* global window */
 'use strict'
 import { PLATFORM } from 'aurelia-framework'
 
@@ -7,7 +8,7 @@ import 'bootstrap-datepicker'
 import { coreActionCreators } from './core/action-creators'
 import { dispatch } from './core/storeHandler'
 
-import { checkToken, removeToken } from './core/lib/token-utils'
+import { TokenUtils } from './core/lib'
 import * as client from './core/client'
 
 export class App {
@@ -21,19 +22,21 @@ export class App {
     await waitForCoreEntitiesToLoad()
 
     config.title = 'Classical'
+    // resets the page scroll after navigating to abother route
+    config.addPipelineStep('postcomplete', PostCompleteStep)
     config.map([
-      { route: '', moduleId: PLATFORM.moduleName('./search/search'), title: 'Search', name: 'search' },
-      { route: 'gigs/:id', moduleId: PLATFORM.moduleName('./details/details'), name: 'details' },
-      { route: 'register', moduleId: PLATFORM.moduleName('./register/register'), name: 'register' },
-      { route: 'login', moduleId: PLATFORM.moduleName('./login/login'), name: 'login' },
-      { route: 'watchdogs', moduleId: PLATFORM.moduleName('./watchdog/watchdog'), name: 'watchdogs' }
+      { route: '', moduleId: PLATFORM.moduleName('./search/search'), title: 'Search', name: 'search', nav: true, settings: { noScrollToTop: false } },
+      { route: 'gigs/:id', moduleId: PLATFORM.moduleName('./details/details'), name: 'details', nav: true, href: '#gigs', settings: { noScrollToTop: false } },
+      { route: 'register', moduleId: PLATFORM.moduleName('./register/register'), name: 'register', nav: true, settings: { noScrollToTop: false } },
+      { route: 'login', moduleId: PLATFORM.moduleName('./login/login'), name: 'login', nav: true, settings: { noScrollToTop: false } },
+      { route: 'watchdogs', moduleId: PLATFORM.moduleName('./watchdog/watchdog'), name: 'watchdogs', nav: true, settings: { noScrollToTop: false } }
     ])
 
     this.router = router
   }
 
   get isLoggedIn (): boolean {
-    return checkToken()
+    return TokenUtils.checkToken()
   }
 
   navigateToLoginPage () {
@@ -46,7 +49,17 @@ export class App {
   }
 
   signout () {
-    removeToken()
+    TokenUtils.removeToken()
+  }
+}
+
+class PostCompleteStep {
+  run (instruction, next) {
+    if (!instruction.config.settings.noScrollToTop) {
+      window.scrollTo(0, 0)
+    }
+
+    return next()
   }
 }
 
@@ -70,10 +83,10 @@ async function checkUserIsValid () {
   try {
     let result = await client.fetchGigs('', 1)
     if (result.status >= 400) {
-      removeToken()
+      TokenUtils.removeToken()
     }
   } catch (e) {
-    removeToken()
+    TokenUtils.removeToken()
   }
 }
 

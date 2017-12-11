@@ -3,7 +3,7 @@
 
 export default {
   fetchLimit: {
-    gig: 7,
+    gig: 12,
     author: 5000
   }
 }
