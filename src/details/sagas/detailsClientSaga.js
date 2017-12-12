@@ -11,7 +11,7 @@ import defaultImage from '../../../static/classical.jpg'
 import * as client from '../../core/client'
 import { ImageUtils } from '../../core/lib'
 
-import type { Gig } from '../../core/types'
+import type { Gig, Performance } from '../../core/types'
 
 function * fetchGig (
   action: { type: 'details-gig-load-request', id: number }
@@ -37,8 +37,9 @@ function * fetchGig (
       moment().add(1, 'y').format('YYYY-MM-DD')
     )).gigs
 
-    // make sure the main gig itself is not among them
-    sameAuthorGigs = filterAndSortSuggestions(gig, sameAuthorGigs)
+    sameAuthorGigs = filterSuggestions(gig, sameAuthorGigs)
+    sameAuthorGigs = sortSuggestions(gig, sameAuthorGigs)
+
     // get only 3 of the suggestions
       .slice(0, 3)
       .map((p) => {
@@ -76,20 +77,113 @@ function * fetchGig (
   }
 }
 
+function getNumberOfMatchingGenres (
+  performances: Array<Performance>,
+  referencePerformances: Array<Performance>
+): number {
+  let counter = 0
+  let matchedIndices = []
+
+  referencePerformances.forEach((p: Performance, i: number) => {
+    performances.forEach((s: Performance, idx: number) => {
+      if (!matchedIndices.includes(idx)) {
+        let genreMatch = false
+        p.genres.forEach((p) => {
+          if (s.genres.includes(p)) {
+            genreMatch = true
+            return false
+          }
+        })
+
+        if (genreMatch) {
+          matchedIndices.push(idx)
+          counter++
+        }
+      }
+    })
+  })
+
+  return counter
+}
+
 function * detailsClientSaga (): Generator<any, any, any> {
   yield takeEvery('details-gig-load-request', fetchGig)
 }
 
-function filterAndSortSuggestions (
+function filterSuggestions (
   detailedGig: Gig,
   sameAuthorGigs: Array<Gig>
 ): Array<Gig> {
-  sameAuthorGigs = sameAuthorGigs.filter((p) => p.id !== detailedGig.id)
+  // make sure the main gig itself is not among them
+  return sameAuthorGigs.filter((p) => p.id !== detailedGig.id)
+}
+
+/**
+* sort the gigs consifering 1) the venue 2) genre of performances 3) datatime
+* the onces that are more similar to the currently views gig, go first
+**/
+function sortSuggestions (
+  detailedGig: Gig,
+  sameAuthorGigs: Array<Gig>
+): Array<Gig> {
   sameAuthorGigs.sort((a, b) => {
-    if (a.venue.id === b.venue.id) {
-      return 0
+    // if the venues are the same or they are both not what the reference venue is,
+    // procede to comparison by genre
+    if (
+      a.venue.id === b.venue.id ||
+      (a.venue.id !== detailedGig.venue.id && b.venue.id !== detailedGig.venue.id)
+    ) {
+      // get "score" of how similar the a and b to the reference in terms of genre of performances
+      const aGenreCount = getNumberOfMatchingGenres(
+        a.performances,
+        detailedGig.performances
+      )
+      const bGenreCount = getNumberOfMatchingGenres(
+        b.performances,
+        detailedGig.performances
+      )
+
+      // if the genre scores are the same, compare by closeness of the datetime
+      if (aGenreCount === bGenreCount) {
+        // if the reference does not have a timestamp, or a and b both do not have it;
+        // a and b are equal
+        if (!detailedGig.timestamp || (!a.timestamp && !b.timestamp)) {
+          return 0
+        }
+
+        // if only a does not have a timestamp, b goes first
+        if (!a.timestamp) {
+          return 1
+        }
+
+        // if only b does not have a timestamp, a goes first
+        if (!b.timestamp) {
+          return -1
+        }
+
+        // if all the 3 gigs have the timestamps, sort based on date distance
+        const aDateDistance = Math.abs(a.timestamp - detailedGig.timestamp)
+        const bDateDistance = Math.abs(b.timestamp - detailedGig.timestamp)
+
+        if (aDateDistance === bDateDistance) {
+          return 0
+        }
+
+        if (aDateDistance > bDateDistance) {
+          return 1
+        }
+
+        return -1
+      }
+
+      if (aGenreCount > bGenreCount) {
+        return -1
+      }
+
+      return 1
     }
 
+    // the gig wi the same venue as the reference goes first
     if (
       a.venue.id === detailedGig.venue.id && b.venue.id !== detailedGig.venue.id
     ) {
