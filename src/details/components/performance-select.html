@@ -1,6 +1,7 @@
 <template>
   <div class="list-group">
     <div
+      style="cursor: pointer;"
       repeat.for="perf of performances"
       click.delegate="selectPerformance(perf.id)"
       class="list-group-item

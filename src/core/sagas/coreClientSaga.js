@@ -17,8 +17,12 @@ let venuesReady = false
 
 function * fetchAuthors (action: Action): Generator<any, any, any> {
   try {
-    const authors = yield call(client.fetchAuthors, '', config.fetchLimit.author)
-    yield put({ type: 'core-authors-load-success', authors: authors })
+    const authorsReponse = yield call(client.fetchAuthors, '', config.fetchLimit.author)
+
+    yield put({
+      type: 'core-authors-load-success',
+      authors: authorsReponse
+    })
     authorsReady = true
     checkEntitiesAreReady()
   } catch (e) {

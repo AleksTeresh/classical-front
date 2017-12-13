@@ -69,8 +69,8 @@
              <option
               repeat.for="author of authors"
               value.bind="author.id"
+              innerhtml.bind="author.name"
               selected.bind="search.filter.authors.includes(author.id)">
-               ${author.name}
              </option>
            </select>
           </div>

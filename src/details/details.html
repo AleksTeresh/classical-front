@@ -55,10 +55,10 @@
           ${selectedOpusWikiLink}
         </a>
         <iframe
+          id="youtubeIFrame"
           if.bind="selectedYoutubeId"
           style="margin-top: 20px;"
-          width="560" height="315"
-          src="https://www.youtube.com/embed/${selectedYoutubeId}">
+          width="560" height="315">
         </iframe>
         <div>
           <h3 if.bind="selectedAuthorDescription">About the composer</h3>

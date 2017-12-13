@@ -2,6 +2,7 @@
 'use strict'
 
 import moment from 'moment'
+import $ from 'jquery'
 
 import { subscribe, dispatch, getState } from '../core/storeHandler'
 import * as actionCreators from './action-creators'
@@ -12,7 +13,6 @@ import type { Performance } from '../core/types'
 
 export default class Details {
   details: DetailsState
-  routeConfig: any;
 
   selectedPerformance: Performance;
 
@@ -24,12 +24,27 @@ export default class Details {
     this.update(getState())
   }
 
-  activate (params: any, routeConfig: any) {
-    this.routeConfig = routeConfig
-
+  activate (params: any) {
     dispatch(actionCreators.gigActions.load(params.id))
   }
-
+/*
+  attached () {
+    const oldYoutubeId = this.selectedPerformance
+    ? this.selectedPerformance.youtubeId
+    : ''
+    console.log('attached', this.selectedPerformance)
+    if (
+      this.selectedPerformance &&
+      oldYoutubeId !== this.selectedPerformance.youtubeId &&
+      this.selectedPerformance.youtubeId
+    ) {
+      $('#youtubeIFrame')[0].contentWindow
+        .location
+        .replace('https://www.youtube.com/embed/' +
+          (this.selectedPerformance.youtubeId || ''))
+    }
+  }
+*/
   detached () {
     this.unsubscribe()
   }
@@ -93,8 +108,43 @@ export default class Details {
   update (state: AppState) {
     this.details = state.details
 
+    const oldYoutubeId = this.selectedPerformance
+    ? this.selectedPerformance.youtubeId
+    : ''
     this.selectedPerformance = this.details.gig.performances
       .filter((p) => p.id === this.details.selection.performanceId)[0]
+
+    if ($('#youtubeIFrame')[0]) {
+      if (
+        this.selectedPerformance &&
+        oldYoutubeId !== this.selectedPerformance.youtubeId &&
+        this.selectedPerformance.youtubeId
+      ) {
+        $('#youtubeIFrame')[0].contentWindow
+          .location
+          .replace('https://www.youtube.com/embed/' +
+            (this.selectedPerformance.youtubeId || ''))
+      }
+    } else {
+      // a hack around to make sure, an initial iframe youtube video is loaded
+      // on the page load
+      let intervalId = -1
+      intervalId = setTimeout(() => {
+        if (
+          this.selectedPerformance &&
+          oldYoutubeId !== this.selectedPerformance.youtubeId &&
+          $('#youtubeIFrame')[0] &&
+          this.selectedPerformance.youtubeId
+        ) {
+          clearInterval(intervalId)
+
+          $('#youtubeIFrame')[0].contentWindow
+            .location
+            .replace('https://www.youtube.com/embed/' +
+              (this.selectedPerformance.youtubeId || ''))
+        }
+      }, 100)
+    }
   }
 }
 

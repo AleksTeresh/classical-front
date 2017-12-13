@@ -1,9 +1,6 @@
 <template>
    <!--Grid row-->
    <div class="row">
-       <h3 if.bind="suggestions.size > 0">
-         More events featuring the same composers
-       </h3>
        <!--Grid column-->
        <div
         repeat.for="suggestion of suggestions"
@@ -18,8 +15,9 @@
                <!--Card image-->
                <div style="max-height: 250px; overflow: hidden;">
                    <img
-                      style="width: 100%;"
+                      style="width: 100%; cursor: pointer;"
                       src="${suggestion.imageUrl}"
+                      click.delegate="navigateToGig(suggestion.id)"
                       alt="${suggestion.name}">
                    <a href="#">
                        <div class="mask"></div>
