@@ -56,7 +56,8 @@
         </a>
         <button
           style=""
-          click.delegate="like()"
+          click.trigger="like()"
+          disabled.bind="!isLoggedIn"
           class="btn action-button ${liked ? 'btn-danger' : 'btn-primary'}">
           <i class="fa fa-heart"></i>
         </button>

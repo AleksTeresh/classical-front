@@ -49,10 +49,21 @@ export type Gig = {
   imageUrl?: string,
   name: string,
   description: string,
-  performances: Array<Performance>,
+  // performances: Array<Performance>,
   timestamp: number,
   duration: number,
-  venue: Venue
+  // venue: Venue
+}
+
+export type DetailedGig = {
+  id: number,
+  imageUrl?: string,
+  name: string,
+  description: string,
+  performances: Array<Performance>,
+  timestamp: number,
+  duration: number
+  // venue: Venue,
 }
 /*
 export type GigPlain = {

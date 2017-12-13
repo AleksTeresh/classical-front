@@ -7,6 +7,8 @@ import $ from 'jquery'
 import { subscribe, dispatch, getState } from '../core/storeHandler'
 import * as actionCreators from './action-creators'
 
+import { TokenUtils } from '../core/lib'
+
 import type { DetailsState } from './types'
 import type { AppState } from '../types'
 import type { Performance } from '../core/types'
@@ -106,7 +108,7 @@ export default class Details {
   }
 
   get liked (): boolean {
-    if (!this.selectedPerformance) {
+    if (!this.selectedPerformance || !this.isLoggedIn) {
       return false
     }
 
@@ -118,6 +120,10 @@ export default class Details {
       actionCreators.gigActions
         .likePerformance(this.selectedPerformance.id)
     )
+  }
+
+  get isLoggedIn (): boolean {
+    return TokenUtils.checkToken()
   }
 
   update (state: AppState) {

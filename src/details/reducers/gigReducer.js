@@ -2,9 +2,9 @@
 'use strict'
 
 import type { Action } from '../../actions'
-import type { Gig } from '../../core/types'
+import type { DetailedGig } from '../../core/types'
 
-const initialState: Gig = {
+const initialState: DetailedGig = {
   id: 0,
   name: '',
   description: '',
@@ -21,9 +21,9 @@ const initialState: Gig = {
 }
 
 export default function gigReducer (
-  state: Gig = initialState,
+  state: DetailedGig = initialState,
   action: Action
-): Gig {
+): DetailedGig {
   switch (action.type) {
     case 'details-gig-load-success':
       return action.gig

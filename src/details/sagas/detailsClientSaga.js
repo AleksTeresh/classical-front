@@ -2,8 +2,6 @@
 /* global Generator */
 'use strict'
 
-import moment from 'moment'
-
 import { call, put, takeEvery } from 'redux-saga/effects'
 
 import defaultImage from '../../../static/classical.jpg'
@@ -11,18 +9,22 @@ import defaultImage from '../../../static/classical.jpg'
 import * as client from '../../core/client'
 import { ImageUtils } from '../../core/lib'
 
-import type { Gig, Performance } from '../../core/types'
+import type { DetailedGig } from '../../core/types'
 
 function * likePerformance (
   action: { type: 'details-performance-like-request', id: number }
 ): Generator<any, any, any> {
   try {
-    yield call(client.likePerformance, action.id)
+    const response = yield call(client.likePerformance, action.id)
 
-    yield put({
-      type: 'details-performance-like-success',
-      performanceId: action.id
-    })
+    if (response.ok) {
+      yield put({
+        type: 'details-performance-like-success',
+        performanceId: action.id
+      })
+    } else {
+      yield put({ type: 'details-performance-like-failure' })
+    }
   } catch (e) {
     console.error(e)
     yield put({ type: 'details-performance-like-failure' })
@@ -33,33 +35,11 @@ function * fetchGig (
   action: { type: 'details-gig-load-request', id: number }
 ): Generator<any, any, any> {
   try {
-    let gig = yield call(client.fetchGig, action.id)
+    let gigDetailsResponse = yield call(client.fetchGig, action.id)
 
-    // fetch suggestions
-    let sameAuthorGigs = (yield call(
-      client.fetchGigs,
-      '',
-      30,
-      0,
-      gig.performances
-        // make sure to exclude "No author" author option, to avoid unwanted suggestions
-        .filter((p) => {
-          return p.author.name !== 'No author' && p.author.id !== 1
-        })
-        .map((p) => p.author.id),
-      null,
-      null,
-      moment().format('YYYY-MM-DD'),
-      moment().add(1, 'y').format('YYYY-MM-DD')
-    )).gigs
-
-    sameAuthorGigs = filterSuggestions(gig, sameAuthorGigs)
-    sameAuthorGigs = sortSuggestions(gig, sameAuthorGigs)
-
-    // get only 3 of the suggestions
-      .slice(0, 3)
+    let suggestions = gigDetailsResponse.suggestions
       .map((p) => {
-        // substitute an image url with the default one, if it is non-existent or invalid
+          // substitute an image url with the default one, if it is non-existent or invalid
         if (!ImageUtils.isImageUrlValid(p.imageUrl)) {
           return {
             ...p,
@@ -70,20 +50,25 @@ function * fetchGig (
         return p
       })
 
+    let detailedGig: DetailedGig = {
+      ...gigDetailsResponse.gig,
+      performances: gigDetailsResponse.performances
+    }
+
     // substitute an image url with the default one, if it is non-existent or invalid
-    if (!ImageUtils.isImageUrlValid(gig.imageUrl)) {
-      gig.imageUrl = defaultImage
+    if (!ImageUtils.isImageUrlValid(detailedGig.imageUrl)) {
+      detailedGig.imageUrl = defaultImage
     }
 
     yield put({
       type: 'details-gig-load-success',
-      gig: gig,
-      suggestions: sameAuthorGigs.slice(0, 3)
+      gig: detailedGig,
+      suggestions: suggestions
     })
-    if (gig.performances.length > 0) {
+    if (detailedGig.performances.length > 0) {
       yield put({
         type: 'details-performance-select',
-        id: gig.performances[0].id
+        id: detailedGig.performances[0].id
       })
     }
   } catch (e) {
@@ -93,6 +78,11 @@ function * fetchGig (
   }
 }
 
+function * detailsClientSaga (): Generator<any, any, any> {
+  yield takeEvery('details-gig-load-request', fetchGig)
+  yield takeEvery('details-performance-like-request', likePerformance)
+}
+/*
 function getNumberOfMatchingGenres (
   performances: Array<Performance>,
   referencePerformances: Array<Performance>
@@ -121,12 +111,9 @@ function getNumberOfMatchingGenres (
 
   return counter
 }
+*/
 
-function * detailsClientSaga (): Generator<any, any, any> {
-  yield takeEvery('details-gig-load-request', fetchGig)
-  yield takeEvery('details-performance-like-request', likePerformance)
-}
-
+/*
 function filterSuggestions (
   detailedGig: Gig,
   sameAuthorGigs: Array<Gig>
@@ -134,11 +121,12 @@ function filterSuggestions (
   // make sure the main gig itself is not among them
   return sameAuthorGigs.filter((p) => p.id !== detailedGig.id)
 }
-
+*/
 /**
 * sort the gigs consifering 1) the venue 2) genre of performances 3) datatime
 * the onces that are more similar to the currently views gig, go first
 **/
+/*
 function sortSuggestions (
   detailedGig: Gig,
   sameAuthorGigs: Array<Gig>
@@ -212,5 +200,5 @@ function sortSuggestions (
 
   return sameAuthorGigs
 }
-
+*/
 export default detailsClientSaga

@@ -1,11 +1,11 @@
 /* @flow */
 'use strict'
 
-import type { Gig } from '../core/types'
+import type { Gig, DetailedGig } from '../core/types'
 
 export type DetailsAction
   = { type: 'details-gig-load-request', id: number }
-  | { type: 'details-gig-load-success', gig: Gig, suggestions: Array<Gig> }
+  | { type: 'details-gig-load-success', gig: DetailedGig, suggestions: Array<Gig> }
   | { type: 'details-gig-load-failure' }
 
   | { type: 'details-gig-subscribe-request', id: number }
