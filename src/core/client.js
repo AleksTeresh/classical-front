@@ -209,6 +209,21 @@ export function createWatchdog (
   )
 }
 
+export function likePerformance (
+  performanceId: number
+): Promise<any> {
+  let options = getDefaultOptions()
+  options.method = 'post'
+  options.body = json({
+    performanceId
+  })
+
+  return httpClient.fetch(
+    '/api/like',
+    options
+  )
+}
+
 export function fetchWatchdogs (): Promise<Array<Watchdog>> {
   let options = getDefaultOptions()
   options.method = 'GET'

@@ -54,6 +54,12 @@
           href.bind="selectedOpusWikiLink">
           ${selectedOpusWikiLink}
         </a>
+        <button
+          style=""
+          click.delegate="like()"
+          class="btn action-button ${liked ? 'btn-danger' : 'btn-primary'}">
+          <i class="fa fa-heart"></i>
+        </button>
         <iframe
           id="youtubeIFrame"
           if.bind="selectedYoutubeId"

@@ -31,7 +31,8 @@ export type Performance = {
   imageUrl?: string,
   youtubeId?: string,
   wikipediaLink: string,
-  genres: Array<Genre>
+  genres: Array<Genre>,
+  liked: boolean
 }
 
 export type Venue = {

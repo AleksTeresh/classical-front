@@ -28,6 +28,18 @@ export default function gigReducer (
     case 'details-gig-load-success':
       return action.gig
 
+    case 'details-performance-like-success':
+      const likeAction = action
+      return {
+        ...state,
+        performances: state.performances.map((p) => p.id === likeAction.performanceId
+        ? {
+          ...p,
+          liked: !p.liked
+        }
+        : p)
+      }
+
     default:
       return state
   }

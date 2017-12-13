@@ -10,9 +10,9 @@ export function load (id: number): Action {
   }
 }
 
-export function like (id: number): Action {
+export function likePerformance (id: number): Action {
   return {
-    type: 'details-gig-like-request',
+    type: 'details-performance-like-request',
     id: id
   }
 }

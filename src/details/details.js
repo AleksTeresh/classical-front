@@ -105,6 +105,21 @@ export default class Details {
     return humanize(this.details.gig.duration)
   }
 
+  get liked (): boolean {
+    if (!this.selectedPerformance) {
+      return false
+    }
+
+    return this.selectedPerformance.liked
+  }
+
+  like () {
+    dispatch(
+      actionCreators.gigActions
+        .likePerformance(this.selectedPerformance.id)
+    )
+  }
+
   update (state: AppState) {
     this.details = state.details
 

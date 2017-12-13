@@ -13,6 +13,22 @@ import { ImageUtils } from '../../core/lib'
 
 import type { Gig, Performance } from '../../core/types'
 
+function * likePerformance (
+  action: { type: 'details-performance-like-request', id: number }
+): Generator<any, any, any> {
+  try {
+    yield call(client.likePerformance, action.id)
+
+    yield put({
+      type: 'details-performance-like-success',
+      performanceId: action.id
+    })
+  } catch (e) {
+    console.error(e)
+    yield put({ type: 'details-performance-like-failure' })
+  }
+}
+
 function * fetchGig (
   action: { type: 'details-gig-load-request', id: number }
 ): Generator<any, any, any> {
@@ -108,6 +124,7 @@ function getNumberOfMatchingGenres (
 
 function * detailsClientSaga (): Generator<any, any, any> {
   yield takeEvery('details-gig-load-request', fetchGig)
+  yield takeEvery('details-performance-like-request', likePerformance)
 }
 
 function filterSuggestions (

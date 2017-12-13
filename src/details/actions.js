@@ -12,9 +12,9 @@ export type DetailsAction
   | { type: 'details-gig-subscribe-success' }
   | { type: 'details-gig-subscribe-failure' }
 
-  | { type: 'details-gig-like-request', id: number }
-  | { type: 'details-gig-like-success' }
-  | { type: 'details-gig-like-failure' }
+  | { type: 'details-performance-like-request', id: number }
+  | { type: 'details-performance-like-success', performanceId: number }
+  | { type: 'details-performance-like-failure' }
 
   // selection
   | { type: 'details-performance-select', id: number }
