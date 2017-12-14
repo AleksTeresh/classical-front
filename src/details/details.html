@@ -46,6 +46,17 @@
 
     <!--Grid column-->
     <div class="col-sm-7">
+        <span
+          data-toggle="${isLoggedIn ? '' : 'tooltip'}"
+          title="${isLoggedIn ? '' : 'You need to sign in first'}">
+          <button
+            style=""
+            click.trigger="like()"
+            disabled.bind="!isLoggedIn"
+            class="btn action-button ${liked ? 'btn-danger' : 'btn-primary'}">
+            <i class="fa fa-heart"></i>
+          </button>
+        </span>
         <h3
           if.bind="selectedAuthorName || selectedOpusName"
           innerhtml.bind="selectedAuthorName + ' - ' + selectedOpusName">
@@ -54,13 +65,6 @@
           href.bind="selectedOpusWikiLink">
           ${selectedOpusWikiLink}
         </a>
-        <button
-          style=""
-          click.trigger="like()"
-          disabled.bind="!isLoggedIn"
-          class="btn action-button ${liked ? 'btn-danger' : 'btn-primary'}">
-          <i class="fa fa-heart"></i>
-        </button>
         <iframe
           id="youtubeIFrame"
           if.bind="selectedYoutubeId"

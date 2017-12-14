@@ -66,9 +66,9 @@ img {
 }
 
 .action-button {
-  position: relative;
-  left: 70px;
-  bottom: 40px;
+  position: absolute;
+  right: 40px;
+  top: -35px;
   width: 54px;
   height: 54px;
   padding: 0px;

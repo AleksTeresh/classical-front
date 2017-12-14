@@ -29,24 +29,13 @@ export default class Details {
   activate (params: any) {
     dispatch(actionCreators.gigActions.load(params.id))
   }
-/*
+
   attached () {
-    const oldYoutubeId = this.selectedPerformance
-    ? this.selectedPerformance.youtubeId
-    : ''
-    console.log('attached', this.selectedPerformance)
-    if (
-      this.selectedPerformance &&
-      oldYoutubeId !== this.selectedPerformance.youtubeId &&
-      this.selectedPerformance.youtubeId
-    ) {
-      $('#youtubeIFrame')[0].contentWindow
-        .location
-        .replace('https://www.youtube.com/embed/' +
-          (this.selectedPerformance.youtubeId || ''))
-    }
+    $(document).ready(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    })
   }
-*/
+
   detached () {
     this.unsubscribe()
   }
