@@ -29,13 +29,11 @@ export default class Details {
   activate (params: any) {
     dispatch(actionCreators.gigActions.load(params.id))
   }
-
+/*
   attached () {
-    $(document).ready(function () {
-      $('[data-toggle="tooltip"]').tooltip()
-    })
+    $('[data-toggle="tooltip"]').tooltip()
   }
-
+*/
   detached () {
     this.unsubscribe()
   }
