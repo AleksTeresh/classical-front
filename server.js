@@ -11,11 +11,9 @@ server.listen(ssl ? sslPort : port, () => {
 
 // if redirecting http to https is set to true
 if (ssl && redirectHttp) {
+  config.ssl = false
   const httpRedirectServer = require('./lib/server')(
-    {
-      ...config,
-      ssl: false
-    },
+    config,
     proxy,
     true
   )

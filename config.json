@@ -1,9 +1,9 @@
 {
-  "port": 8080,
-  "sslPort": 8070,
+  "port": 80,
+  "sslPort": 443,
   "ssl": true,
   "redirectHttp": true,
-  "endpoint": "localhost:8085",
+  "endpoint": "back-end:8085",
   "endpointSSL": true,
   "secureSSL": false,
   "respondWith": "/dist/index.html"

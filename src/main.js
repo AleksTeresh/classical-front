@@ -9,6 +9,9 @@ import 'babel-polyfill'
 import 'bootstrap-select/dist/js/bootstrap-select.min.js'
 import * as Bluebird from 'bluebird'
 
+import moment from 'moment-timezone'
+moment.tz.setDefault('UTC')
+
 // remove out if you don't want a Promise polyfill (remove also from webpack.config.js)
 Bluebird.config({ warnings: { wForgottenReturn: false } })
 
