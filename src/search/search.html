@@ -125,39 +125,37 @@
              col-md-8 col-md-offset-2
              col-lg-8 col-lg-offset-2">
       <div class="center">
+        <button
+          style="float: right"
+          style="display: inline;"
+          disabled.bind="!isLoggedIn"
+          class="btn btn-primary"
+          click.delegate="createWatchdog()">
+          Create watchdog
+        </button>
+        <button
+          style="float: right"
+          style="display: inline;"
+          class="btn btn-primary"
+          click.delegate="submitFilter()">
+          Search
+        </button>
 
-          <button
-            style="float: right"
-            style="display: inline;"
-            disabled.bind="!isLoggedIn"
-            class="btn btn-primary"
-            click.delegate="createWatchdog()">
-            Create watchdog
-          </button>
-          <button
-            style="float: right"
-            style="display: inline;"
-            class="btn btn-primary"
-            click.delegate="submitFilter()">
-            Search
-          </button>
-
-          <div
-            style="overflow: hidden; padding-right: .5em;"
-            class="input-group">
-            <span class="input-group-addon"><i class="fa fa-search prefix"></i></span>
-            <input
-              id="search"
-              type="text"
-              class="form-control"
-              style="width: 100%;"
-              name="search"
-              keyup.delegate="handleSearchKeyUp($event)"
-              value.to-view="search.filter.search"
-              placeholder="Search"
-              ></input>
-          </div>
-  
+        <div
+          style="overflow: hidden; padding-right: .5em;"
+          class="input-group">
+          <span class="input-group-addon"><i class="fa fa-search prefix"></i></span>
+          <input
+            id="search"
+            type="text"
+            class="form-control"
+            style="width: 100%;"
+            name="search"
+            keyup.delegate="handleSearchKeyUp($event)"
+            value.to-view="search.filter.search"
+            placeholder="Search"
+            ></input>
+        </div>
       </div>
     </div>
   </div>

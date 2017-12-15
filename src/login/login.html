@@ -3,11 +3,12 @@
     <div class="col-sm-10 col-sm-offset-1
                 col-md-6 col-md-offset-3
                 col-lg-4 col-lg-offset-4">
-      <form>
-        <div class="center">
-          <div class="page-header">
-            <h1>Sign in to Classical</h1>
-          </div>
+      <div class="center">
+        <div class="page-header">
+          <h1>Sign in to Classical</h1>
+        </div>
+        <form
+          >
           <div
             class="form-group ${emailErrors.length > 0 ? 'has-error' : ''} has-feedback"
             validation-errors.bind="emailErrors">
@@ -38,8 +39,9 @@
             class="btn btn-primary">
             Sign in
           </button>
-        </div>
-      </form>
+
+        </form>
+      </div>
     </div>
   </div>
 </template>

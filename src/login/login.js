@@ -1,6 +1,8 @@
 /* @flow */
 'use strict'
 
+import $ from 'jquery'
+
 import { inject } from 'aurelia-framework'
 import {
     Validator,
@@ -49,8 +51,14 @@ export class Login {
     this.setupValidation()
   }
 
+  attached () {
+    $(window.document).keyup((ev) => this.handleKeyUp(ev))
+  }
+
   detached () {
     this.unsubscribe()
+
+    $(window.document).off('keyup')
   }
 
   validateWhole () {
@@ -81,6 +89,12 @@ export class Login {
       this.login.email,
       this.login.password
     ))
+  }
+
+  handleKeyUp (event: any) {
+    if (event.keyCode === 13 && this.canSubmit) {
+      this.submit()
+    }
   }
 
   update (state: AppState) {
